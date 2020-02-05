@@ -12,16 +12,38 @@ h3 {
 }
 
 h3, p {
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.dog-cards {
+.cards {
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
+}
+
+.card {
+  width: 345px;
+  height: 400px;
+  margin: 20px;
+}
+
+.card .card-image {
+  height: 200px;
+}
+
+.card .card-content p {
+  font-size: 13px;
+}
+
+.attributes {
+  color: #828282;
+  padding-bottom: 3px;
+}
+
+.description {
+  max-height: 100px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
