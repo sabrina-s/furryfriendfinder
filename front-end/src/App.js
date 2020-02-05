@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import DogSelector from './DogSelector';
+import Dogs from './Dogs';
 
 function App() {
   return (
-    <DogSelector/>
+    <Dogs/>
   );
 }
 
