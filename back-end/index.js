@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 require('dotenv').config();
 const Dog = require('./models/Dog');
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '../front-end/build')));
 
 mongoose.Promise = global.Promise;
 
