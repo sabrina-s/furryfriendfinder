@@ -25,15 +25,22 @@ async function connectDb() {
 
 connectDb();
 
-// Temporary - to create new dog
-
-// const newDog = new Dog({ name: "Bernie", gender: "male", description: "ok" });
-
-// async function createDog() {
-//   await newDog.save();
+// Create new dog
+// const createDog = async dog => {
+//   try {
+//     const newDog = new Dog(dog);
+//     await newDog.save();
+//   } catch (err) {
+//     handleError(err);
+//   }
 // };
-
-// createDog();
+// createDog({
+//   name: "",
+//   gender: "",
+//   description: "",
+//   hdbApproved: false,
+//   available: true
+// });
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
