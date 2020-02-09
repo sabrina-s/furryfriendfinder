@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardMedia, CardContent } from '@material-ui/core';
 import { upperFirst } from 'lodash';
 
@@ -6,11 +6,22 @@ import { upperFirst } from 'lodash';
 const dummyImagePath = "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
 
 function Dogs() {
+  const [dogs, setDogs] = useState([]);
+
+  useEffect(() => {
+    async function fetchDogs() {
+      const response = await fetch("http://localhost:5000/dogs");
+      const json = await response.json();
+      setDogs(json);
+    }
+    fetchDogs();
+  }, []);
+
   return (
     <div className="cards">
       {
         dogs.map(dog => (
-          <Card className="card" key={dog.id}>
+          <Card className="card" key={dog._id}>
             <CardMedia
               className="card-image"
               image={dummyImagePath}
@@ -26,6 +37,7 @@ function Dogs() {
               </div>
 
               <p className="description">{dog.description}</p>
+              <button>Adopt</button>
             </CardContent>
           </Card>
         ))
