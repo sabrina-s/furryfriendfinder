@@ -1,32 +1,16 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const app = express();
 const path = require('path');
 const cors = require('cors');
 const Dog = require('./models/Dog');
-
-const app = express();
+const connectDb = require('./db');
 
 app.use(express.static(path.join(__dirname, '../front-end/build')));
 app.use(express.json());
 app.use(cors());
 
-mongoose.Promise = global.Promise;
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function() {
-  console.log('connected!');
-})
-
-async function connectDb() {
-  await mongoose.connect(`mongodb+srv://Sabrina:${process.env.MONGO_PW}@playground-yqlwt.mongodb.net/furryfriendfinder?retryWrites=true&w=majority`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-};
-
-connectDb();
+connectDb;
 
 // Create new dog
 // const createDog = async dog => {
