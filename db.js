@@ -9,7 +9,7 @@ db.once('open', function() {
 })
 
 async function connectDb() {
-  await mongoose.connect(`mongodb+srv://Sabrina:${process.env.MONGO_PW}@playground-yqlwt.mongodb.net/furryfriendfinder?retryWrites=true&w=majority`, {
+  await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
