@@ -4,7 +4,7 @@
 Adopt a new furry friend.
 
 ## Backend
-- GET /dogs to view all dogs in the database
+- GET / to view all dogs in the database
 - POST /users to create a user
 - POST /dog/:dogId to adopt a dog
 

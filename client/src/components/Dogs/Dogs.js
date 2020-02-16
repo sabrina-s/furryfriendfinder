@@ -36,7 +36,7 @@ function Dogs() {
               </div>
 
               <p className="description">{dog.description}</p>
-              <button role="adopt">Adopt</button>
+              <button>Adopt</button>
             </CardContent>
           </Card>
         ))

@@ -6,7 +6,7 @@ const cors = require('cors');
 const Dog = require('./models/Dog');
 const connectDb = require('./db');
 
-app.use(express.static(path.join(__dirname, '../front-end/build')));
+app.use(express.static(path.join(__dirname, './client/build')));
 app.use(express.json());
 app.use(cors());
 
