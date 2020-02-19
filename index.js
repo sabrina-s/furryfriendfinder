@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const app = express();
@@ -8,8 +9,16 @@ const port = process.env.PORT || 5000;
 const connectDb = require('./db');
 const Dog = require('./models/Dog');
 
+const corsOptions = {
+  credentials: true,
+  allowedHeaders: "content-type",
+  origin: "http://localhost:3001",
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
+app.use(cookieParser());
+
 connectDb;
 
 app.get('/dogs', (req, res) => {
