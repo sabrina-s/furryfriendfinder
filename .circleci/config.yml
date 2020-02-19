@@ -31,8 +31,8 @@ jobs:
       #       - node_modules
       #     key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: cd client && npm install
-      - run: cd client && npm test
+      - run: cd app && npm install
+      - run: cd app && npm test
 
       # Temporarily commented out since there are no back-end tests
       # - run: npm install

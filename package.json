@@ -17,15 +17,15 @@
     "react-scripts": "^3.4.0"
   },
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "client-install": "npm install --prefix app",
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client": "cd client && npm start",
+    "client": "cd app && npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "cd client && npm install && npm install && npm run build"
+    "heroku-postbuild": "cd app && npm install && npm install && npm run build"
   },
   "engines": {
     "node": "10.14.2"
