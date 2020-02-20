@@ -13,7 +13,9 @@ Adopt a new furry friend.
 
 # Blockers
 
-## Heroku deployment (still blocked)
+### Heroku deployment (resolved)
+
+Update 20/02: Resolved by removing `mars/create-react-app-buildpack` buildpack from Heroku. 🤡
 
 **Errors encountered:**
 
