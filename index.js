@@ -1,13 +1,15 @@
 require('dotenv').config();
 const express = require('express');
+const app = express();
+const port = process.env.PORT || 5000;
+
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-const app = express();
-const port = process.env.PORT || 5000;
+const dogsRouter = require('./routes/dogs');
+const usersRouter = require('./routes/users');
 const connectDb = require('./db');
-const Dog = require('./models/Dog');
 
 const corsOptions = {
   credentials: true,
@@ -19,13 +21,10 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
-connectDb;
+app.use('/', dogsRouter);
+app.use('/', usersRouter);
 
-app.get('/dogs', (req, res) => {
-  Dog.find({}, function(err, dogs) {
-    res.send(dogs);
-  });
-});
+connectDb;
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
