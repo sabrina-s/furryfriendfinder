@@ -10,7 +10,6 @@ const Dog = require('./models/Dog');
 
 app.use(express.json());
 app.use(cors());
-
 connectDb;
 
 app.get('/dogs', (req, res) => {
@@ -19,17 +18,7 @@ app.get('/dogs', (req, res) => {
   });
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
-} else {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/public/index.html'));
-  })
-}
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
