@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Dog = require('../models/Dog');
+const Dog = require('../models/dog');
 
 router.get('/dogs', (req, res) => {
   Dog.find({}, function(err, dogs) {
