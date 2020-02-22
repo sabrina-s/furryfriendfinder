@@ -32,3 +32,15 @@ describe('validate uniqueness', () => {
     );
   });
 });
+
+describe('validate presence', () => {
+  test('username is required', async () => {
+    let userWithoutUsername = new User({ password: '123' });
+    await expect(userWithoutUsername.save()).rejects.toThrow(ValidationError);
+  });
+
+  test('password is required', async () => {
+    let userWithoutPassword = new User({ username: 'sabrina2' });
+    await expect(userWithoutPassword.save()).rejects.toThrow(ValidationError);
+  });
+});
