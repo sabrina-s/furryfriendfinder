@@ -5,7 +5,6 @@ afterAll(test_mongodb.teardown);
 
 const User = require('./user');
 
-// doesn't work yet, `npm test` throws some error
 describe('User model', () => {
   const username = 'sabrina';
   const password = 'qwerty123';

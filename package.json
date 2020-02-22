@@ -21,11 +21,11 @@
   },
   "scripts": {
     "client-install": "npm install --prefix client",
-    "start": "node index.js",
-    "server": "nodemon index.js",
+    "start": "node server.js",
+    "server": "nodemon server.js",
     "client": "cd client && npm start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watch routes",
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
@@ -49,8 +49,10 @@
     ]
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "devDependencies": {},
+  "main": "server.js",
+  "devDependencies": {
+    "supertest": "^4.0.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sabrina-s/thoughtworks.git"
