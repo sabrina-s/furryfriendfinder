@@ -1,8 +1,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { wait } from '@testing-library/dom';
-
-import { render, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Dogs from './Dogs';
 
 beforeEach(() => {
@@ -21,15 +20,15 @@ test('renders dog cards', async () => {
     }
   ];
 
-  fetch.mockResponseOnce(JSON.stringify(fakeDogs), {headers: { 'content-type': 'application/json' }});
+  fetch.mockResponseOnce(JSON.stringify(fakeDogs), { headers: { 'content-type': 'application/json' } });
 
-  let container
-  
+  let container;
+
   act(() => {
     container = render(<Dogs />);
   })
 
-  const { queryAllByText, queryByText } = container;
+  const { queryAllByText } = container;
 
   const bernies = await wait(() => queryAllByText(/Bernie/i).length > 0)
 
