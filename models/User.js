@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt');
+
+const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = new Schema({
   username: {
@@ -50,6 +52,8 @@ UserSchema.methods.verifyJWT = function(token) {
     return false;
   }
 };
+
+UserSchema.plugin(uniqueValidator, { message: 'should be unique' });
 
 const User = mongoose.model('User', UserSchema);
 
