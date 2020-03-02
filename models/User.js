@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const Joi = require('@hapi/joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt');
@@ -57,4 +58,14 @@ UserSchema.plugin(uniqueValidator, { message: 'should be unique' });
 
 const User = mongoose.model('User', UserSchema);
 
-module.exports = User;
+function validateUser(user) {
+  const schema = Joi.object({
+    username: Joi.string().min(5).required(),
+    password: Joi.string().min(8).required()
+  })
+
+  return Joi.assert(user, schema);
+}
+
+exports.User = User;
+exports.validate = validateUser;
