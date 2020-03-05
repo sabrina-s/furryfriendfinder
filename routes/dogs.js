@@ -3,10 +3,9 @@ const router = express.Router();
 
 const Dog = require('../models/dog');
 
-router.get('/', (req, res) => {
-  Dog.find({}, function(err, dogs) {
-    res.send(dogs);
-  });
+router.get('/', async (req, res) => {
+  const dogs = await Dog.find({});
+  res.json(dogs);
 });
 
 module.exports = router;
