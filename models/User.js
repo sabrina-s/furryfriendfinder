@@ -5,12 +5,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt');
 
-const uniqueValidator = require('mongoose-unique-validator');
-
 const UserSchema = new Schema({
   username: {
     type: String,
-    required: true,
+    required: [true, 'Username is required.'],
     index: true,
     unique: true,
     minlength: 5,
@@ -18,7 +16,7 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: [true, 'Password is required.'],
     minlength: 8
   }
 });
@@ -52,8 +50,6 @@ UserSchema.methods.verifyJWT = function(token) {
     return false;
   }
 };
-
-UserSchema.plugin(uniqueValidator, { message: 'should be unique' });
 
 const User = mongoose.model('User', UserSchema);
 

@@ -27,20 +27,27 @@ describe('validate uniqueness', () => {
 
   it('should not allow 2 users with the same username', async () => {
     let newUser = new User({ username: username, password: 'newpassword' });
-    await expect(newUser.save()).rejects.toThrow(
-      'username: should be unique'
-    );
+
+    await expect(newUser.save()).rejects.toThrow();
   });
 });
 
 describe('validate presence', () => {
-  test('username is required', async () => {
-    let userWithoutUsername = new User({ password: '123' });
-    await expect(userWithoutUsername.save()).rejects.toThrow(ValidationError);
+  test('username is required', async (done) => {
+    let userWithoutUsername = new User({ password: '12345678' });
+
+    userWithoutUsername.save(error => {
+      expect(error.errors['username'].message).toEqual('Username is required.');
+      done();
+    })
   });
 
-  test('password is required', async () => {
+  test('password is required', async (done) => {
     let userWithoutPassword = new User({ username: 'sabrina2' });
-    await expect(userWithoutPassword.save()).rejects.toThrow(ValidationError);
+
+    userWithoutPassword.save(error => {
+      expect(error.errors['password'].message).toEqual('Password is required.');
+      done();
+    })
   });
 });
