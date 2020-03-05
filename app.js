@@ -14,8 +14,11 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.use('/', dogsRouter);
-app.use('/api/users', usersRouter);
+const apiRoute = express.Router();
+
+app.use('/api', apiRoute);
+apiRoute.use('/dogs', dogsRouter);
+apiRoute.use('/users', usersRouter);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 module.exports = app;

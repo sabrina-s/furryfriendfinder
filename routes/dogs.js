@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Dog = require('../models/dog');
 
-router.get('/dogs', (req, res) => {
+router.get('/', (req, res) => {
   Dog.find({}, function(err, dogs) {
     res.send(dogs);
   });
