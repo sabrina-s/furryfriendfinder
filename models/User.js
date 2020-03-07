@@ -22,10 +22,17 @@ const UserSchema = new Schema({
 });
 
 UserSchema.pre('save', async function(next) {
-  const rounds = 10;
-  this.password = await bcrypt.hash(this.password, rounds);
+  this.password = await hashPassword(this.password);
   next();
 });
+
+function hashPassword(password) {
+  return bcrypt.hash(password, 10);
+};
+
+UserSchema.methods.isValidPassword = async function(password) {
+  return await bcrypt.compare(password, this.password);
+}
 
 UserSchema.methods.generateJWT = function() {
   const today = new Date();
