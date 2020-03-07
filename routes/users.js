@@ -27,7 +27,12 @@ router.post('/login', async (req, res) => {
   if (!valid) {
     return res.status(422).json({ message: 'Incorrect password.' });
   } else {
-    return res.status(200).json({ message: 'Login success!' });
+    const token = user.generateJWT();
+
+    return res.status(200).json({
+      message: 'Login success!',
+      token: token
+    });
   }
 })
 
