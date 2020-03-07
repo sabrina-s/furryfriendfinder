@@ -24,22 +24,57 @@ describe('POST /users/login', () => {
     expect(response.body).toEqual({ message: 'User does not exist.' });
   })
 
-  it('should return 200 response with JWT token on success login', async () => {
-    const response = await request(app)
-      .post('/api/users/login')
-      .send({ username: 'amanda', password: '12345678' })
+  describe('on success', () => {
+    it('should return 200 response on success login', async () => {
+      const response = await request(app)
+        .post('/api/users/login')
+        .send({ username: 'amanda', password: '12345678' })
 
-    expect(response.status).toEqual(200);
-    expect(response.body.message).toEqual('Login success!');
-    // JWT expect(response.body.token).toEqual("");
+      expect(response.status).toEqual(200);
+      expect(response.body.message).toEqual('Login success!');
+    })
+
+    describe('JWT tokens', () => {
+      const username = 'newuser-success';
+      const password = '12345678';
+
+      let user = new User({ username, password });
+
+      beforeEach(async () => {
+        await user.save();
+      })
+
+      it('JWT token is generated and verified on success', () => {
+        let token = user.generateJWT();
+        expect(user.verifyJWT(token)).toBeTruthy();
+      })
+    })
   })
 
-  it('should return 422 response if password is incorrect', async () => {
-    const response = await request(app)
-    .post('/api/users/login')
-    .send({ username: 'amanda', password: 'incorrect-password' });
+  describe('on failure', () => {
+    it('should return 422 response if password is incorrect', async () => {
+      const response = await request(app)
+      .post('/api/users/login')
+      .send({ username: 'amanda', password: 'incorrect-password' });
 
-    expect(response.status).toEqual(422);
-    expect(response.body).toEqual({ message: 'Incorrect password.'});
+      expect(response.status).toEqual(422);
+      expect(response.body).toEqual({ message: 'Incorrect password.'});
+    })
+
+    describe('JWT tokens', () => {
+      const username = 'newuser-failure';
+      const password = '12345678';
+
+      let user = new User({ username, password });
+
+      beforeEach(async () => {
+        await user.save();
+      })
+
+      it('JWT token cannot be verified on failure', () => {
+        let token = 'invalid-token';
+        expect(user.verifyJWT(token)).toBeFalsy();
+      })
+    })
   })
 });
