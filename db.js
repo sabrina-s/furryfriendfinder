@@ -11,6 +11,7 @@ db.once('open', function() {
 async function connectDb() {
   await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
+    useCreateIndex: true,
     useUnifiedTopology: true
   });
 };
