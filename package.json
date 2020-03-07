@@ -50,6 +50,7 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "server.js",
   "devDependencies": {
+    "eslint": "^6.8.0",
     "jest": "^25.1.0",
     "mongodb-memory-server": "^6.2.4",
     "supertest": "^4.0.2"
