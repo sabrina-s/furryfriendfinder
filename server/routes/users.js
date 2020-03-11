@@ -29,9 +29,14 @@ router.post('/login', async (req, res) => {
   } else {
     const token = user.generateJWT();
 
+    res.cookie('access_token', token, {
+      maxAge: 1000 * 3600 * 24 * 7,
+      httpOnly: true,
+      secure: true
+    });
+
     return res.status(200).json({
-      message: 'Login success!',
-      token: token
+      message: 'Login success!'
     });
   }
 })

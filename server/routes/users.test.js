@@ -35,7 +35,6 @@ describe('POST /users/login', () => {
 
       expect(response.status).toEqual(200);
       expect(response.body.message).toEqual('Login success!');
-      expect(response.body.token).toEqual(token);
     })
 
     describe('JWT token generation', () => {

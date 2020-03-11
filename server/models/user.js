@@ -35,17 +35,15 @@ UserSchema.methods.isValidPassword = async function(password) {
 }
 
 UserSchema.methods.generateJWT = function() {
-  const today = new Date();
-  const exp = new Date(today);
-  exp.setDate(today.getDate() + 60);
-
   return jwt.sign(
     {
       userid: this._id,
-      username: this.username,
-      exp: parseInt(exp.getTime() / 1000)
+      username: this.username
     },
-    secret
+    secret,
+    {
+      expiresIn: "7d"
+    }
   );
 };
 
