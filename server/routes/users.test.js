@@ -31,8 +31,6 @@ describe('POST /users/login', () => {
         .post('/api/users/login')
         .send({ username: 'newuser-success', password: '12345678' })
 
-      let token = user.generateJWT();
-
       expect(response.status).toEqual(200);
       expect(response.body.message).toEqual('Login success!');
     })
@@ -57,8 +55,8 @@ describe('POST /users/login', () => {
 
     it('should return 422 response if password is incorrect', async () => {
       const response = await request(app)
-      .post('/api/users/login')
-      .send({ username: 'newuser-failure', password: 'incorrect-password' });
+        .post('/api/users/login')
+        .send({ username: 'newuser-failure', password: 'incorrect-password' });
 
       expect(response.status).toEqual(422);
       expect(response.body).toEqual({ message: 'Incorrect password.'});
