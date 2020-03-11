@@ -6,11 +6,11 @@ beforeAll(test_mongodb.setup);
 afterAll(test_mongodb.teardown);
 
 describe('GET /dogs', () => {
-  it('should return a list of dogs', async () => {
+  it('should return 401 error if access token is missing', async () => {
     await request(app)
       .get('/api/dogs')
       .set('Accept', 'application/json')
-      .expect(200)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /json/)
+      .expect(401)
   });
 });
