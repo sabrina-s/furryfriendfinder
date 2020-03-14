@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 import Dogs from './Dogs/Dogs';
+import Navbar from './Users/Navbar';
 
 function App() {
   return (
     <div>
-      <h1>Furry Friend Finder</h1>
+      <Navbar/>
       <Dogs/>
     </div>
   );
