@@ -4,14 +4,14 @@ const router = express.Router();
 
 const User = require('../models/user');
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     user = new User(_.pick(req.body, ['username', 'password']));
     await user.save();
 
-    res.send(_.pick(user, ['_id', 'username']));
+    return res.status(200).json({ message: `${user.username} registered successfully!` });
   } catch (error) {
-    res.send(error);
+    return res.status(400).json({ message: 'Unable to register user.' });
   }
 })
 
