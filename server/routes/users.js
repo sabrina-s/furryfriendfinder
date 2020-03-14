@@ -40,4 +40,13 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.put('/change_password', async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+
+  user.setPassword(req.body.password);
+  await user.save();
+
+  return res.status(200).json({ message: 'Password updated!' })
+})
+
 module.exports = router;

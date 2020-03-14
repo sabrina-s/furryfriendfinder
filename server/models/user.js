@@ -30,6 +30,10 @@ function hashPassword(password) {
   return bcrypt.hash(password, 10);
 };
 
+UserSchema.methods.setPassword = async function(newPassword) {
+  this.password = newPassword;
+}
+
 UserSchema.methods.isValidPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 }
