@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
+const jwt_validation = require('../middleware/jwt_middleware');
 
 const User = require('../models/user');
 
@@ -40,7 +41,7 @@ router.post('/login', async (req, res) => {
   }
 })
 
-router.put('/change_password', async (req, res) => {
+router.put('/change_password', jwt_validation.required, async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
 
   user.setPassword(req.body.password);
