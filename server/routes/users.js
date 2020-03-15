@@ -30,14 +30,14 @@ router.post('/login', async (req, res) => {
   } else {
     const token = user.generateJWT();
 
-    res.cookie('access_token', token, {
-      maxAge: 1000 * 3600 * 24 * 7,
-      httpOnly: true
-    });
-
-    return res.status(200).json({
-      message: 'Login success!'
-    });
+    return res.status(200)
+      .cookie('access_token', token, {
+        maxAge: 1000 * 3600 * 24 * 7,
+        httpOnly: true
+      })
+      .json({
+        message: 'Login success!'
+      });
   }
 })
 
