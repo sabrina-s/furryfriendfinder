@@ -1,14 +1,19 @@
 import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string().trim().required('Please enter username.'),
+  password: Yup.string().required('Please enter password.')
+})
 
 function LoginPage() {
-  function handleLogin (e) {
-    e.preventDefault()
-    console.log('logging in...')
+  const handleLogin = (values, { setSubmitting }) => {
+    setSubmitting(true)
 
-    const username = e.target.username.value
-    const password = e.target.password.value
+    const username = values.username;
+    const password = values.password;
 
-    const url = 'http://localhost:5000/api/users/login'
     const options = {
       method: 'POST',
       body: JSON.stringify({ username, password }),
@@ -18,14 +23,16 @@ function LoginPage() {
       credentials: 'include'
     }
 
-    e.target.reset()
-
-    // TODO
-    // fetch(url, options)
+    // TOFIX:
+    // fetch('/api/users/login', options)
     //   .then(response => {
+    //     setSubmitting(false);
     //     console.log('response', response);
     //   })
-    //   .catch(console.error)
+    //   .catch(error => {
+    //     setSubmitting(false);
+    //     console.log(error);
+    //   })
   }
 
   return (
@@ -33,31 +40,42 @@ function LoginPage() {
       <h3>Login</h3>
 
       <div>
-        <form onSubmit={handleLogin}>
-          <label>
-            Username:
-            <input
-              type='text'
-              name='username'
-              placeholder='Username'
-            />
-          </label>
+        <Formik
+          initialValues={{
+            username: '',
+            password: ''
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleLogin}
+        >
+          {
+            props => (
+              <Form>
+                <div className='form-field'>
+                  <Field
+                    type='text'
+                    name='username'
+                    placeholder='Username'
+                  />
+                  <ErrorMessage name='username' component='span' className='form-field-error' />
+                </div>
 
-          <label>
-            Password:
-            <input
-              type='password'
-              name='password'
-              placeholder='Password'
-            />
-          </label>
+                <div className='form-field'>
+                  <Field
+                    type='password'
+                    name='password'
+                    placeholder='Password'
+                  />
+                  <ErrorMessage name='password' component='span' className='form-field-error' />
+                </div>
 
-          <input
-            type='submit'
-            value='Login'
-            onClick={() => handleLogin}
-          />
-        </form>
+                <button type='submit' disabled={props.isSubmitting}>
+                  Login
+                </button>
+              </Form>
+            )
+          }
+        </Formik>
       </div>
     </div>
   )

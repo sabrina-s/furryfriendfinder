@@ -54,3 +54,13 @@ a {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.login-page {
+  padding: 20px;
+}
+
+.form-field-error {
+  color: #a70000;
+  font-size: 13px;
+  margin-left: 5px;
+}
