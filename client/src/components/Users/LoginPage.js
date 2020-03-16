@@ -9,7 +9,7 @@ const validationSchema = Yup.object().shape({
 
 function LoginPage() {
   const handleLogin = (values, { setSubmitting }) => {
-    setSubmitting(true)
+    setSubmitting(true);
 
     const username = values.username;
     const password = values.password;
@@ -18,22 +18,21 @@ function LoginPage() {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: {
-        'Content-Type:': 'application/json'
+        'Content-Type': 'application/json'
       },
       credentials: 'include'
     }
 
-    // TOFIX:
-    // fetch('/api/users/login', options)
-    //   .then(response => {
-    //     setSubmitting(false);
-    //     console.log('response', response);
-    //   })
-    //   .catch(error => {
-    //     setSubmitting(false);
-    //     console.log(error);
-    //   })
-  }
+    return fetch('http://localhost:5000/api/users/login', options)
+      .then(response => {
+        setSubmitting(false);
+        console.log('response', response);
+      })
+      .catch(error => {
+        setSubmitting(false);
+        console.log(error);
+      })
+}
 
   return (
     <div className='login-page'>
@@ -56,6 +55,7 @@ function LoginPage() {
                     type='text'
                     name='username'
                     placeholder='Username'
+                    autoComplete='username'
                   />
                   <ErrorMessage name='username' component='span' className='form-field-error' />
                 </div>
@@ -65,6 +65,7 @@ function LoginPage() {
                     type='password'
                     name='password'
                     placeholder='Password'
+                    autoComplete='current-password'
                   />
                   <ErrorMessage name='password' component='span' className='form-field-error' />
                 </div>
