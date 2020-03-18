@@ -42,7 +42,7 @@ describe('POST /users/login', () => {
       .send({ username: 'Sabrina', password: '12345678' })
 
     expect(response.status).toEqual(422);
-    expect(response.body).toEqual({ message: 'User does not exist.' });
+    expect(response.body).toEqual({ message: 'Invalid email or password.' });
   })
 
   describe('on success', () => {
@@ -88,7 +88,7 @@ describe('POST /users/login', () => {
         .send({ username: 'newuser-failure', password: 'incorrect-password' });
 
       expect(response.status).toEqual(422);
-      expect(response.body).toEqual({ message: 'Incorrect password.'});
+      expect(response.body).toEqual({ message: 'Invalid email or password.'});
     })
 
     describe('JWT token generation', () => {
