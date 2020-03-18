@@ -19,14 +19,12 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
 
-  if (_.isEmpty(user)) {
-    return res.status(422).json({ message: 'User does not exist.' });
-  }
+  if (!user) return res.status(422).json({ message: 'Invalid email or password.' });
 
   const valid = await user.isValidPassword(req.body.password);
 
   if (!valid) {
-    return res.status(422).json({ message: 'Incorrect password.' });
+    return res.status(422).json({ message: 'Invalid email or password.' });
   } else {
     const token = user.generateJWT();
 
