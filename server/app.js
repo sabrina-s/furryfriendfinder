@@ -22,6 +22,6 @@ const apiRoute = express.Router();
 app.use('/api', apiRoute);
 apiRoute.use('/dogs', dogsRouter);
 apiRoute.use('/users', usersRouter);
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
 module.exports = app;
