@@ -12,8 +12,17 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(cookieParser());
+
+const origin = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://spotifind-sabrina.herokuapp.com';
+  } else {
+    return 'http://localhost:3000';
+  }
+}
+
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: origin(),
   credentials: true
 }));
 

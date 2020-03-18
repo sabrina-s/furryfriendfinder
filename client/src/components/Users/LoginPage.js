@@ -23,7 +23,15 @@ function LoginPage() {
       credentials: 'include'
     }
 
-    return fetch('http://localhost:5000/api/users/login', options)
+    const loginApi = () => {
+      if (process.env.NODE_ENV === 'production') {
+        return 'https://spotifind-sabrina.herokuapp.com/api/users/login';
+      } else {
+        return 'http://localhost:5000/api/users/login';
+      }
+    }
+
+    return fetch(loginApi(), options)
       .then(response => {
         setSubmitting(false);
         console.log('response', response);
