@@ -31,6 +31,11 @@ const apiRoute = express.Router();
 app.use('/api', apiRoute);
 apiRoute.use('/dogs', dogsRouter);
 apiRoute.use('/users', usersRouter);
+
+app.get('/login', (req, res) => {
+  res.send('hello world');
+})
+
 app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
 module.exports = app;
