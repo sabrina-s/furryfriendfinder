@@ -22,7 +22,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "test": "jest --watch routes models",
+    "test": "jest",
     "client": "cd ../client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
