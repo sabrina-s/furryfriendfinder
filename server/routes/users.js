@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
         maxAge: 1000 * 3600 * 24 * 7,
         httpOnly: true
       })
-      .cookie('user', _.pick(user, ['id']))
+      .send(user)
       .json({
         message: 'Login success!',
         user: _.pick(user, ['id', 'username'])
@@ -47,8 +47,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/me', jwt_validation.required, async (req, res) => {
-  const userId = req.cookies.user.id;
-  const user = await User.findById(userId).select('-password');
+  const user = await User.findById(req.user.userid).select('-password');
   return res.send(user);
 })
 
