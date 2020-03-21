@@ -33,7 +33,6 @@ router.post('/login', async (req, res) => {
         maxAge: 1000 * 3600 * 24 * 7,
         httpOnly: true
       })
-      .send(user)
       .json({
         message: 'Login success!',
         user: _.pick(user, ['id', 'username'])
