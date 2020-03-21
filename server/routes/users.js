@@ -33,8 +33,10 @@ router.post('/login', async (req, res) => {
         maxAge: 1000 * 3600 * 24 * 7,
         httpOnly: true
       })
+      .cookie('user', _.pick(user, ['id']))
       .json({
-        message: 'Login success!'
+        message: 'Login success!',
+        user: _.pick(user, ['id', 'username'])
       });
   }
 })
@@ -42,6 +44,12 @@ router.post('/login', async (req, res) => {
 router.get('/', async (req, res) => {
   const users = await User.find({}).select('-password');
   return res.json(users);
+})
+
+router.get('/me', jwt_validation.required, async (req, res) => {
+  const userId = req.cookies.user.id;
+  const user = await User.findById(userId).select('-password');
+  return res.send(user);
 })
 
 router.put('/change_password', jwt_validation.required, async (req, res) => {
