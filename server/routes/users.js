@@ -39,6 +39,11 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.get('/', async (req, res) => {
+  const users = await User.find({}).select('-password');
+  return res.json(users);
+})
+
 router.put('/change_password', jwt_validation.required, async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
 
