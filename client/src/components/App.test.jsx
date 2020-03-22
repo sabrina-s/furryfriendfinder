@@ -1,19 +1,23 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react'
-import { act } from 'react-dom/test-utils';
+import { cleanup, render, wait } from '@testing-library/react';
 import App from './App';
 
 afterEach(cleanup);
 
-test('renders app header', () => {
-
-  fetch.mockResponseOnce(JSON.stringify([]), {headers: { 'content-type': 'application/json' }});
-
-  let container;
-  act(() => {
-    container = render(<App/>);
+test('renders app header', async () => {
+  fetch.mockResponse((req) => {
+    if (req === 'http://localhost:5000/api/dogs') {
+      return Promise.resolve(JSON.stringify([]));
+    }
+    if (req === 'http://localhost:5000/api/users/me') {
+      return Promise.resolve(JSON.stringify({}));
+    }
+    return Promise.resolve(JSON.stringify([]));
   });
 
-  const headerElement = container.getByText(/Furry Friend Finder/i);
+  const { getByText } = render(<App />);
+
+  await wait();
+  const headerElement = getByText('Furry Friend Finder');
   expect(headerElement).toBeInTheDocument();
 });
