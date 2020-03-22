@@ -34,7 +34,7 @@ function LoginPage() {
     return fetch(loginApi(), options)
       .then(response => {
         setSubmitting(false);
-        console.log('response', response);
+        window.location.pathname = '/';
       })
       .catch(error => {
         setSubmitting(false);

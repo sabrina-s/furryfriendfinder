@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './Users/Navbar';
 import Dogs from './Dogs/Dogs';
@@ -26,18 +26,20 @@ const options = {
 }
 
 function App() {
+  const [currentUser, setCurrentUser] = useState();
+
   useEffect(() => {
     (async() => {
-      // TODO
-      const result = await fetch(meApi(), options);
-      console.log('yeeeee----------', result)
+      const response = await fetch(meApi(), options);
+      const user = await response.json();
+      setCurrentUser(user);
     })();
   }, [])
 
   return (
     <Router>
       <div>
-        <Navbar/>
+        <Navbar currentUser={currentUser} />
         <Switch>
           <Route path='/' exact component={Dogs} />
           <Route path='/login' component={LoginPage} />
