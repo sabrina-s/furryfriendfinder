@@ -1,13 +1,14 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().trim().required('Please enter username.'),
   password: Yup.string().required('Please enter password.')
 })
 
-function LoginPage() {
+function LoginPage({ history }) {
   const handleLogin = (values, { setSubmitting }) => {
     setSubmitting(true);
 
@@ -34,7 +35,7 @@ function LoginPage() {
     return fetch(loginApi(), options)
       .then(response => {
         setSubmitting(false);
-        window.location.pathname = '/';
+        history.push('/');
       })
       .catch(error => {
         setSubmitting(false);
@@ -89,5 +90,9 @@ function LoginPage() {
     </div>
   )
 };
+
+LoginPage.propTypes = {
+  history: PropTypes.arrayOf(PropTypes.string).isRequired,
+}
 
 export default LoginPage;

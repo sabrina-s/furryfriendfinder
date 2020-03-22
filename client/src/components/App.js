@@ -15,7 +15,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path='/' exact component={Dogs} />
-        <Route path='/login' component={LoginPage} />
+        <Route path='/login' render={(props) => <LoginPage history={props.history} />} />
       </Switch>
     </Router>
   );
