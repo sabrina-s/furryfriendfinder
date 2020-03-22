@@ -1,7 +1,8 @@
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
-const jwt_validation = require('../middleware/jwt_middleware');
+const auth = require('../middleware/jwt_middleware');
+const admin = require('../middleware/admin');
 
 const User = require('../models/user');
 
@@ -40,17 +41,17 @@ router.post('/login', async (req, res) => {
   }
 })
 
-router.get('/', async (req, res) => {
+router.get('/', [auth.required, admin], async (req, res) => {
   const users = await User.find({}).select('-password');
   return res.json(users);
 })
 
-router.get('/me', jwt_validation.required, async (req, res) => {
-  const user = await User.findById(req.user.userid).select('-password');
+router.get('/me', auth.required, async (req, res) => {
+  const user = await User.findById(req.user.id).select('-password');
   return res.send(user);
 })
 
-router.put('/change_password', jwt_validation.required, async (req, res) => {
+router.put('/change_password', auth.required, async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
 
   user.setPassword(req.body.password);

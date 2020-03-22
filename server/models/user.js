@@ -18,7 +18,9 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'Password is required.'],
     minlength: 8
-  }
+  },
+  isAdmin: Boolean,
+  default: false
 });
 
 UserSchema.pre('save', async function(next) {
@@ -41,8 +43,9 @@ UserSchema.methods.isValidPassword = async function(password) {
 UserSchema.methods.generateJWT = function() {
   return jwt.sign(
     {
-      userid: this._id,
-      username: this.username
+      id: this._id,
+      username: this.username,
+      isAdmin: this.isAdmin
     },
     secret,
     {
