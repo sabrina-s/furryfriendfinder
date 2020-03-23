@@ -6,10 +6,7 @@ afterEach(cleanup);
 
 test('renders app header', async () => {
   fetch.mockResponse((req) => {
-    if (req === 'http://localhost:5000/api/dogs') {
-      return Promise.resolve(JSON.stringify([]));
-    }
-    if (req === 'http://localhost:5000/api/users/me') {
+    if (req === 'http://localhost:5000/api/me') {
       return Promise.resolve(JSON.stringify({}));
     }
     return Promise.resolve(JSON.stringify([]));
@@ -20,4 +17,4 @@ test('renders app header', async () => {
   await wait();
   const headerElement = getByText('Furry Friend Finder');
   expect(headerElement).toBeInTheDocument();
-});
+})

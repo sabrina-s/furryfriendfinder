@@ -1,11 +1,12 @@
 import React from 'react';
-import { wait } from '@testing-library/dom';
-import { render } from '@testing-library/react';
+import { cleanup, render, wait } from '@testing-library/react';
 import Dogs from './Dogs';
 
 beforeEach(() => {
   fetch.resetMocks();
 });
+
+afterEach(cleanup);
 
 test('renders dog cards', async () => {
   const fakeDog = {
@@ -17,7 +18,7 @@ test('renders dog cards', async () => {
       hdbApproved: true
   };
 
-  fetch.mockResponseOnce(JSON.stringify([fakeDog]), { headers: { 'content-type': 'application/json' } });
+  fetch.mockResponseOnce(JSON.stringify([fakeDog]));
 
   const { getByText } = render(<Dogs />);
 
