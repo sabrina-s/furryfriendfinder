@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const error = require('./middleware/error');
+const winston = require('winston');
+require('express-async-errors');
 
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -31,6 +34,10 @@ const apiRoute = express.Router();
 app.use('/api', apiRoute);
 apiRoute.use('/dogs', dogsRouter);
 apiRoute.use('/users', usersRouter);
+
+// error logging
+app.use(error);
+winston.add(new winston.transports.File({ filename: 'logfile.log' }));
 
 app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
