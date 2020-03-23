@@ -41,6 +41,12 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.post('/logout', async (req, res) => {
+  return res.status(200)
+    .clearCookie('access_token')
+    .json({ message: 'Logout success!' });
+})
+
 router.get('/', [auth.required, admin], async (req, res) => {
   const users = await User.find({}).select('-password');
   return res.json(users);

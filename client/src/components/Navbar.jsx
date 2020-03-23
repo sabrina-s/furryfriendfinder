@@ -9,12 +9,12 @@ const meApi = () => {
   }
 }
 
-const options = {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  credentials: 'include'
+const logoutApi = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://spotifind-sabrina.herokuapp.com/api/users/logout';
+  } else {
+    return 'http://localhost:5000/api/users/logout';
+  }
 }
 
 function Navbar() {
@@ -22,7 +22,10 @@ function Navbar() {
 
   useEffect(() => {
     (async() => {
-      const response = await fetch(meApi(), options);
+      const response = await fetch(meApi(), {
+        method: 'GET',
+        credentials: 'include'
+      });
       await response.json()
         .then(user => {
           setCurrentUser(user);
@@ -33,6 +36,19 @@ function Navbar() {
     })();
   }, [])
 
+  function handleLogOut() {
+    return fetch(logoutApi(), {
+      method: 'POST',
+      credentials: 'include'
+    })
+      .then(() => {
+        setCurrentUser();
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
   return (
     <div className='navbar'>
       <Link to='/'>
@@ -40,9 +56,10 @@ function Navbar() {
       </Link>
       {
         currentUser &&
-        <p>
-          {currentUser.username}
-        </p>
+        <div className='user-details'>
+          <p>{currentUser.username}</p>
+          <button className='logout' onClick={handleLogOut}>Log out</button>
+        </div>
       }
       {
         !currentUser &&
