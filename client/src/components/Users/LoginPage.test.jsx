@@ -4,14 +4,20 @@ import {
   fireEvent,
   wait,
 } from '@testing-library/react';
+import * as Router from 'react-router-dom';
 import LoginPage from './LoginPage';
 
+jest.mock('react-router-dom', () => ({
+  useHistory: jest.fn(),
+}));
+
 afterEach(() => {
+  jest.resetAllMocks();
   fetch.resetMocks();
 });
 
 test('shows form inputs for username and password', async () => {
-  const { getByPlaceholderText } = render(<LoginPage history={[]} />);
+  const { getByPlaceholderText } = render(<LoginPage />);
 
   expect(getByPlaceholderText('Username')).toBeInTheDocument();
   expect(getByPlaceholderText('Password')).toBeInTheDocument();
@@ -19,7 +25,10 @@ test('shows form inputs for username and password', async () => {
 });
 
 test('navigates to dashboard when login is successful', async () => {
-  const history = [];
+  const addHistory = jest.fn();
+  jest.spyOn(Router, 'useHistory').mockReturnValue({
+    push: addHistory,
+  });
   fetch.mockResponseOnce((req) => {
     if (req.url === 'http://localhost:5000/api/users/login') {
       return Promise.resolve({});
@@ -27,7 +36,7 @@ test('navigates to dashboard when login is successful', async () => {
     return Promise.reject();
   });
 
-  const { getByRole, getByPlaceholderText } = render(<LoginPage history={history} />);
+  const { getByRole, getByPlaceholderText } = render(<LoginPage />);
   const submit = getByRole('button');
   const username = getByPlaceholderText('Username');
   const password = getByPlaceholderText('Password');
@@ -52,5 +61,5 @@ test('navigates to dashboard when login is successful', async () => {
     fireEvent.click(submit);
   });
 
-  expect(history).toEqual(['/']);
+  expect(addHistory).toHaveBeenCalledWith('/');
 });

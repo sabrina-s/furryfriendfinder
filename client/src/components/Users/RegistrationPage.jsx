@@ -1,14 +1,15 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useHistory } from 'react-router-dom';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import PropTypes from 'prop-types';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().trim().required('Please enter username.'),
   password: Yup.string().required('Please enter password.')
 })
 
-function RegistrationPage({ history }) {
+function RegistrationPage() {
+  const history = useHistory();
   const handleRegister = (values, { setSubmitting }) => {
     setSubmitting(true);
 
@@ -90,9 +91,5 @@ function RegistrationPage({ history }) {
     </div>
   )
 };
-
-RegistrationPage.propTypes = {
-  history: PropTypes.arrayOf(PropTypes.string).isRequired,
-}
 
 export default RegistrationPage;

@@ -16,8 +16,8 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Dogs} />
-        <Route path="/login" render={(props) => <LoginPage history={props.history} />} />
-        <Route path="/register" render={(props) => <RegistrationPage history={props.history} />} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegistrationPage} />
       </Switch>
     </Router>
   );

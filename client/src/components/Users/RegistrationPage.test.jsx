@@ -4,7 +4,12 @@ import {
   fireEvent,
   wait,
 } from '@testing-library/react';
+import * as Router from 'react-router-dom';
 import RegistrationPage from './RegistrationPage';
+
+jest.mock('react-router-dom', () => ({
+  useHistory: jest.fn(),
+}));
 
 afterEach(() => {
   fetch.resetMocks();
@@ -19,7 +24,10 @@ test('shows form inputs for username and password', async () => {
 });
 
 test('navigates to dashboard when registration is successful', async () => {
-  const history = [];
+  const addHistory = jest.fn();
+  jest.spyOn(Router, 'useHistory').mockReturnValue({
+    push: addHistory,
+  });
   fetch.mockResponseOnce((req) => {
     if (req.url === 'http://localhost:5000/api/users/register') {
       return Promise.resolve({});
@@ -27,7 +35,7 @@ test('navigates to dashboard when registration is successful', async () => {
     return Promise.reject();
   });
 
-  const { getByRole, getByPlaceholderText } = render(<RegistrationPage history={history} />);
+  const { getByRole, getByPlaceholderText } = render(<RegistrationPage />);
   const submit = getByRole('button');
   const username = getByPlaceholderText('Username');
   const password = getByPlaceholderText('Password');
@@ -52,5 +60,5 @@ test('navigates to dashboard when registration is successful', async () => {
     fireEvent.click(submit);
   });
 
-  expect(history).toEqual(['/']);
+  expect(addHistory).toHaveBeenCalledWith('/');
 });
