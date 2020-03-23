@@ -26,6 +26,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "test": "jest",
+    "devtest": "jest --watch",
     "client": "cd ../client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
