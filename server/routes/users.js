@@ -7,14 +7,10 @@ const admin = require('../middleware/admin');
 const User = require('../models/user');
 
 router.post('/register', async (req, res) => {
-  try {
-    user = new User(_.pick(req.body, ['username', 'password']));
-    await user.save();
+  const user = new User(_.pick(req.body, ['username', 'password']));
+  await user.save();
 
-    return res.status(200).json({ message: `${user.username} registered successfully!` });
-  } catch (error) {
-    return res.status(400).json({ message: 'Unable to register user.' });
-  }
+  res.status(200).json({ message: `${user.username} registered successfully!` });
 })
 
 router.post('/login', async (req, res) => {

@@ -63,9 +63,11 @@ function Navbar() {
       }
       {
         !currentUser &&
-        <Link to='/login'>
-          Login
-        </Link>
+        <div>
+          <Link to='/login'>Login</Link>
+          /
+          <Link to='/register'>Register</Link>
+        </div>
       }
     </div>
   )

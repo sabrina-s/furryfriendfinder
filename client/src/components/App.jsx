@@ -8,6 +8,7 @@ import {
 import Navbar from './Navbar';
 import Dogs from './Dogs/Dogs';
 import LoginPage from './Users/LoginPage';
+import RegistrationPage from './Users/RegistrationPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Dogs} />
         <Route path="/login" render={(props) => <LoginPage history={props.history} />} />
+        <Route path="/register" render={(props) => <RegistrationPage history={props.history} />} />
       </Switch>
     </Router>
   );

@@ -55,7 +55,8 @@ a {
   overflow: hidden;
 }
 
-.login-page {
+.login-page,
+.registration-page {
   padding: 20px;
 }
 
