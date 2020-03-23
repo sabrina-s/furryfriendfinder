@@ -19,8 +19,10 @@ const UserSchema = new Schema({
     required: [true, 'Password is required.'],
     minlength: 8
   },
-  isAdmin: Boolean,
-  default: false
+  isAdmin: {
+    type: Boolean,
+    default: false
+  }
 });
 
 UserSchema.pre('save', async function(next) {
