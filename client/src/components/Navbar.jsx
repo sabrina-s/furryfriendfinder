@@ -1,28 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-const meApi = () => {
-  if (process.env.NODE_ENV === 'production') {
-    return 'https://spotifind-sabrina.herokuapp.com/api/users/me';
-  } else {
-    return 'http://localhost:5000/api/users/me';
-  }
-}
-
-const logoutApi = () => {
-  if (process.env.NODE_ENV === 'production') {
-    return 'https://spotifind-sabrina.herokuapp.com/api/users/logout';
-  } else {
-    return 'http://localhost:5000/api/users/logout';
-  }
-}
+import { ME_API, LOGOUT_API } from '../api';
 
 function Navbar() {
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     (async() => {
-      const response = await fetch(meApi(), {
+      const response = await fetch(ME_API, {
         method: 'GET',
         credentials: 'include'
       });
@@ -37,7 +22,7 @@ function Navbar() {
   }, [])
 
   function handleLogOut() {
-    return fetch(logoutApi(), {
+    return fetch(LOGOUT_API, {
       method: 'POST',
       credentials: 'include'
     })

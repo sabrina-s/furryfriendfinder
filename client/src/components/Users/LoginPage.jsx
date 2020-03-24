@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { LOGIN_API } from '../../api';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().trim().required('Please enter username.'),
@@ -26,15 +27,7 @@ function LoginPage() {
       credentials: 'include'
     }
 
-    const loginApi = () => {
-      if (process.env.NODE_ENV === 'production') {
-        return 'https://spotifind-sabrina.herokuapp.com/api/users/login';
-      } else {
-        return 'http://localhost:5000/api/users/login';
-      }
-    }
-
-    return fetch(loginApi(), options)
+    return fetch(LOGIN_API, options)
       .then(response => {
         setSubmitting(false);
         history.push('/');

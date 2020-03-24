@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 
 function getJWTSigningSecret() {
   const secret = process.env.JWT_TOKEN;

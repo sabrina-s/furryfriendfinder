@@ -1,13 +1,7 @@
-export default async function fetchDogs() {
-  const dogsApi = () => {
-    if (process.env.NODE_ENV === 'production') {
-      return 'https://spotifind-sabrina.herokuapp.com/api/dogs';
-    } else {
-      return 'http://localhost:5000/api/dogs';
-    }
-  }
+import { GET_DOGS_API } from '../api';
 
-  const response = await fetch(dogsApi());
+export default async function fetchDogs() {
+  const response = await fetch(GET_DOGS_API);
   const json = await response.json();
   return json;
 }
