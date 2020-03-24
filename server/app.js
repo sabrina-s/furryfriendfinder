@@ -12,7 +12,7 @@ const cors = require('cors');
 const dogsRouter = require('./routes/dogs');
 const usersRouter = require('./routes/users');
 
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: '../client/.env' });
 
 app.use(express.json());
 app.use(cookieParser());

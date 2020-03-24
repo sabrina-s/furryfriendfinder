@@ -6,6 +6,7 @@ import {
 } from '@testing-library/react';
 import * as Router from 'react-router-dom';
 import RegistrationPage from './RegistrationPage';
+import { REGISTER_API } from '../../api';
 
 jest.mock('react-router-dom', () => ({
   useHistory: jest.fn(),
@@ -29,7 +30,7 @@ test('navigates to dashboard when registration is successful', async () => {
     push: addHistory,
   });
   fetch.mockResponseOnce((req) => {
-    if (req.url === 'http://localhost:5000/api/users/register') {
+    if (req.url === REGISTER_API) {
       return Promise.resolve({});
     }
     return Promise.reject();

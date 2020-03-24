@@ -6,6 +6,7 @@ import {
 } from '@testing-library/react';
 import * as Router from 'react-router-dom';
 import LoginPage from './LoginPage';
+import { LOGIN_API } from '../../api';
 
 jest.mock('react-router-dom', () => ({
   useHistory: jest.fn(),
@@ -30,7 +31,7 @@ test('navigates to dashboard when login is successful', async () => {
     push: addHistory,
   });
   fetch.mockResponseOnce((req) => {
-    if (req.url === 'http://localhost:5000/api/users/login') {
+    if (req.url === LOGIN_API) {
       return Promise.resolve({});
     }
     return Promise.reject();
