@@ -56,7 +56,8 @@ a {
 }
 
 .login-page,
-.registration-page {
+.registration-page,
+.settings-page {
   padding: 20px;
 }
 

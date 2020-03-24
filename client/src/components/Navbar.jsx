@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { ME_API, LOGOUT_API } from '../api';
 
 function Navbar() {
+  const history = useHistory();
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
@@ -34,6 +36,10 @@ function Navbar() {
       })
   }
 
+  function viewUserSettings() {
+    history.push('/settings');
+  }
+
   return (
     <div className='navbar'>
       <Link to='/'>
@@ -42,7 +48,7 @@ function Navbar() {
       {
         currentUser &&
         <div className='user-details'>
-          <p>{currentUser.username}</p>
+          <p onClick={viewUserSettings}>{currentUser.username}</p>
           <button className='logout' onClick={handleLogOut}>Log out</button>
         </div>
       }

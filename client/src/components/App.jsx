@@ -9,6 +9,7 @@ import Navbar from './Navbar';
 import Dogs from './Dogs/Dogs';
 import LoginPage from './Users/LoginPage';
 import RegistrationPage from './Users/RegistrationPage';
+import SettingsPage from './Users/SettingsPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" exact component={Dogs} />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegistrationPage} />
+        <Route path="/settings" component={SettingsPage} />
       </Switch>
     </Router>
   );

@@ -66,7 +66,7 @@ router.get('/me', auth.required, async (req, res) => {
 })
 
 router.put('/change_password', auth.required, async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
+  const user = await User.findById(req.user.id);
 
   user.setPassword(req.body.password);
   await user.save();

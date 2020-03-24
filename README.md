@@ -21,7 +21,7 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] can login as user
 - [x] can logout as user
 - [x] can view own username when logged in
-- [ ] can change own password
+- [x] can change own password
 - [ ] can adopt a dog
 
 ## 23 March - ...
@@ -33,16 +33,16 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] test for register
 - [x] users/register frontend
 - [x] log user in immediately after registering
-- [ ] test for change_password
-- [ ] users/change_password frontend
-- [ ] users/change_password validation; check if user in payload matches currently logged in user
+- [x] users/change_password frontend
+- [x] users/change_password validation; check if user in payload matches currently logged in user
 - [ ] dogs/adopt/:id backend
 - [ ] dogs/adopt/:id frontend
 
 ### TOFIX:
-- [ ] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immedately. it only displays when you refresh
+- [ ] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh
 - [ ] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found'. need to rearrange placement of components/loading of api etc?
 
 ### TODO with amanda:
 - [ ] test users/logout; test that access_token is removed
-- [ ] users/login; issue with react-router `history`? see console errors.
+- [ ] test for change_password
+- [x] users/login; issue with react-router `history`? see console errors.
