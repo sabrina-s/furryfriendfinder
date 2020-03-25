@@ -61,7 +61,7 @@ router.get('/', [auth.required, admin], async (req, res) => {
 })
 
 router.get('/me', auth.required, async (req, res) => {
-  const user = await User.findById(req.user.id).select('-password');
+  const user = await User.findById(req.user.id).select('username -_id');
   res.send(user);
 })
 
