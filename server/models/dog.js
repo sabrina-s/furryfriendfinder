@@ -24,6 +24,9 @@ const DogSchema = new Schema({
     type: Boolean,
     required: true,
     default: true
+  },
+  image: {
+    type: String
   }
 });
 

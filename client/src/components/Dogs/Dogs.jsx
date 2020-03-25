@@ -3,7 +3,6 @@ import { Card, CardMedia, CardContent } from '@material-ui/core';
 import { upperFirst } from 'lodash';
 import fetchDogs from '../../data/dogs';
 
-// TODO: add images for pet profiles, stored with mongoDB
 const dummyImagePath = "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
 
 function Dogs() {
@@ -16,6 +15,14 @@ function Dogs() {
     })();
   }, []);
 
+  function getImage(image) {
+    if (!image) {
+      return dummyImagePath;
+    } else {
+      return require(`../../assets/${image}`);
+    }
+  }
+
   return (
     <div className="cards" data-testid="cards">
       {
@@ -23,7 +30,7 @@ function Dogs() {
           <Card className="card" key={dog._id}>
             <CardMedia
               className="card-image"
-              image={dummyImagePath}
+              image={getImage(dog.image)}
               title={dog.name}
             />
             <CardContent className="card-content">
