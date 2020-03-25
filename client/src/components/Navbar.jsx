@@ -1,28 +1,12 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from './Users/UserContext';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { ME_API, LOGOUT_API } from '../api';
+import { LOGOUT_API } from '../api';
 
 function Navbar({ setCurrentUser }) {
   const history = useHistory();
   const currentUser = useContext(UserContext);
-
-  useEffect(() => {
-    (async() => {
-      const response = await fetch(ME_API, {
-        method: 'GET',
-        credentials: 'include'
-      });
-      await response.json()
-        .then(user => {
-          setCurrentUser(user);
-        })
-        .catch(error => {
-          console.error('Unable to fetch current user: ', error);
-        })
-    })();
-  }, [])
 
   function handleLogOut() {
     return fetch(LOGOUT_API, {

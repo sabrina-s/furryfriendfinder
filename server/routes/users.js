@@ -60,11 +60,6 @@ router.get('/', [auth.required, admin], async (req, res) => {
   return res.json(users);
 })
 
-router.get('/me', auth.required, async (req, res) => {
-  const user = await User.findById(req.user.id).select('username -_id');
-  res.send(user);
-})
-
 router.put('/change_password', auth.required, async (req, res) => {
   const user = await User.findById(req.user.id);
 
