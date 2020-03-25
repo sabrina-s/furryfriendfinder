@@ -45,5 +45,5 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 
 ### TODO with amanda:
 - [ ] test users/logout; test that access_token is removed
-- [ ] test for change_password
+- [x] test for change_password
 - [x] users/login; issue with react-router `history`? see console errors.
