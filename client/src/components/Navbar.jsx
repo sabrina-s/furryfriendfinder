@@ -30,6 +30,7 @@ function Navbar() {
     })
       .then(() => {
         setCurrentUser();
+        history.push('/');
       })
       .catch(error => {
         console.log(error);
