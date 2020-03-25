@@ -10,7 +10,8 @@ Adopt a new furry friend.
 - [x] POST /users/login to login as a user
 - [x] GET /users/me to fetch currently logged in user
 - [x] POST /users/logout
-- [ ] PUT /users/change_password to change (TOFIX: check that requested user is also currently logged in user)
+- [x] PUT /users/change_password to change
+- [x] POST /dogs to add new dog
 - [ ] POST /dog/adopt/:id to adopt a dog
 
 ## Frontend
