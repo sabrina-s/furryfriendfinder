@@ -9,11 +9,11 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Please enter password.')
 })
 
-function LoginPage() {
+function LoginPage({ setCurrentUser }) {
   const history = useHistory();
   const [errorMessage, setErrorMessage] = useState();
 
-  const handleLogin = (values, { setSubmitting }) => {
+  const handleLogin = async (values, { setSubmitting }) => {
     setSubmitting(true);
 
     const username = values.username;
@@ -28,19 +28,16 @@ function LoginPage() {
       credentials: 'include'
     }
 
-    return fetch(LOGIN_API, options)
-      .then(response => {
-        if (response.status === 200) {
-          history.push('/');
-        } else {
-          setErrorMessage('Unable to log in. Please try again.');
-        }
-        setSubmitting(false);
-      })
-      .catch(error => {
-        setSubmitting(false);
-        console.log(error);
-      })
+    try {
+      const loginResponse = await fetch(LOGIN_API, options);
+      const body = await loginResponse.json();
+      setCurrentUser(body.user);
+      setSubmitting(false);
+      history.push('/');
+    } catch (err) {
+      setSubmitting(false);
+      console.log(err);
+    }
   }
 
   return (

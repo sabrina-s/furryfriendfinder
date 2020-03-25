@@ -40,7 +40,7 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [ ] dogs/adopt/:id frontend
 
 ### TOFIX:
-- [ ] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh
+- [x] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh
 - [ ] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found'. need to rearrange placement of components/loading of api etc?
 
 ### TODO with amanda:

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { UserContext } from './Users/UserContext';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { ME_API, LOGOUT_API } from '../api';
 
-function Navbar() {
+function Navbar({ setCurrentUser }) {
   const history = useHistory();
-  const [currentUser, setCurrentUser] = useState();
+  const currentUser = useContext(UserContext);
 
   useEffect(() => {
     (async() => {

@@ -25,19 +25,21 @@ test('shows form inputs for username and password', async () => {
   await wait();
 });
 
-test('navigates to dashboard when login is successful', async () => {
+test('sets currentUser and navigates to dashboard when login is successful', async () => {
   const addHistory = jest.fn();
+  const setCurrentUser = jest.fn();
+  const user = {
+    '_id': 1,
+    'username': 'username'
+  };
+
   jest.spyOn(Router, 'useHistory').mockReturnValue({
     push: addHistory,
   });
-  fetch.mockResponseOnce((req) => {
-    if (req.url === LOGIN_API) {
-      return Promise.resolve({});
-    }
-    return Promise.reject();
-  });
 
-  const { getByRole, getByPlaceholderText } = render(<LoginPage />);
+  fetch.mockResponseOnce(JSON.stringify({ user }))
+
+  const { getByRole, getByPlaceholderText } = render(<LoginPage setCurrentUser={setCurrentUser} />);
   const submit = getByRole('button');
   const username = getByPlaceholderText('Username');
   const password = getByPlaceholderText('Password');
@@ -63,4 +65,5 @@ test('navigates to dashboard when login is successful', async () => {
   });
 
   expect(addHistory).toHaveBeenCalledWith('/');
+  expect(setCurrentUser).toHaveBeenCalledWith(user);
 });
