@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -11,6 +11,7 @@ const validationSchema = Yup.object().shape({
 
 function LoginPage() {
   const history = useHistory();
+  const [errorMessage, setErrorMessage] = useState();
 
   const handleLogin = (values, { setSubmitting }) => {
     setSubmitting(true);
@@ -29,8 +30,12 @@ function LoginPage() {
 
     return fetch(LOGIN_API, options)
       .then(response => {
+        if (response.status === 200) {
+          history.push('/');
+        } else {
+          setErrorMessage('Unable to log in. Please try again.');
+        }
         setSubmitting(false);
-        history.push('/');
       })
       .catch(error => {
         setSubmitting(false);
@@ -82,6 +87,11 @@ function LoginPage() {
           }
         </Formik>
       </div>
+
+      {
+        errorMessage &&
+        <p className='form-field-error'>{errorMessage}</p>
+      }
     </div>
   )
 };
