@@ -32,6 +32,8 @@ a {
   width: 345px;
   height: 400px;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .card .card-image {
@@ -40,6 +42,10 @@ a {
 
 .card .card-content p {
   font-size: 13px;
+}
+
+.card-actions {
+  margin-top: auto;
 }
 
 .attributes {
