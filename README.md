@@ -12,7 +12,7 @@ Adopt a new furry friend.
 - [x] POST /users/logout
 - [x] PUT /users/change_password to change
 - [x] POST /dogs to add new dog
-- [ ] POST /dog/adopt/:id to adopt a dog
+- [x] PUT /dogs/adopt/:id to adopt a dog
 
 ## Frontend
 Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0%3A1
@@ -23,7 +23,7 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] can logout as user
 - [x] can view own username when logged in
 - [x] can change own password
-- [ ] can adopt a dog
+- [x] can adopt a dog
 
 ## 23 March - ...
 
@@ -36,8 +36,10 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] log user in immediately after registering
 - [x] users/change_password frontend
 - [x] users/change_password validation; check if user in payload matches currently logged in user
-- [ ] dogs/adopt/:id backend
-- [ ] dogs/adopt/:id frontend
+- [x] dogs/adopt/:id backend
+- [x] dogs/adopt/:id frontend
+- [ ] add `adopter` property on Dog to tag adopted Dog to specific user?
+- [ ] tests for dogs/adopt (blocker)
 
 ### TOFIX:
 - [x] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh (Solution: implement UserContext)

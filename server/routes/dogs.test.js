@@ -29,16 +29,12 @@ const invalidPayload = {
 
 describe('GET /dogs', () => {
   it('should return a list of dogs', async () => {
-    await Dog.collection.insertMany([
-      validPayload,
-      validPayload2
-    ]);
+    await Dog.collection.insertOne(validPayload);
 
     const response = await request(app).get('/api/dogs');
 
     expect(response.status).toBe(200);
-    expect(response.body.length).toBe(2);
-    expect(response.body.some((dog) => dog.name === 'Amber')).toBeTruthy();
+    expect(response.body.length).toBe(1);
     expect(response.body.some((dog) => dog.name === 'Tony')).toBeTruthy();
   });
 });
@@ -60,5 +56,25 @@ describe('POST /dogs', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400);
+  });
+});
+
+describe('PUT /dogs/adopt/:id', () => {
+  it('should update dog availability to false', async () => {
+    const dog = new Dog(validPayload2);
+
+    beforeEach(async () => {
+      await dog.save();
+    });
+
+    const dogId = await dog._id;
+
+    console.log('dogId-test', dogId);
+    console.log('dog-test---', dog);
+
+    const response = await request(app).put(`/api/dogs/adopt/${dogId}`);
+
+    expect(response.status).toBe(200);
+    // expect(response.body).toHaveProperty('name', dog.name);
   });
 });
