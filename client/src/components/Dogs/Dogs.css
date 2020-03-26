@@ -1,0 +1,39 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.card {
+  width: 345px;
+  height: 400px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card .card-image {
+  height: 200px;
+}
+
+.card .card-content p {
+  font-size: 13px;
+}
+
+.card-actions {
+  margin-top: auto;
+  justify-content: flex-end;
+}
+
+.attributes {
+  color: #828282;
+  padding-bottom: 3px;
+}
+
+.description {
+  max-height: 100px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

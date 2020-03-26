@@ -24,7 +24,7 @@ function Dogs() {
   }
 
   return (
-    <div className='cards' data-testid='cards'>
+    <div className='cards'>
       {
         dogs.map(dog => (
           <Card className='card' key={dog._id}>
