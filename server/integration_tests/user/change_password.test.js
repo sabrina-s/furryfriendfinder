@@ -1,7 +1,7 @@
-const test_mongodb = require('../test_helper/in_memory_mongodb_setup');
+const test_mongodb = require('../../test_helper/in_memory_mongodb_setup');
 const request = require('supertest');
-const app = require('../app');
-const User = require('../models/user');
+const app = require('../../app');
+const User = require('../../models/user');
 
 beforeAll(test_mongodb.setup);
 afterAll(test_mongodb.teardown);

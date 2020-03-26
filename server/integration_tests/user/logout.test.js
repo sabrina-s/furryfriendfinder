@@ -1,10 +1,10 @@
-const test_mongodb = require('../test_helper/in_memory_mongodb_setup');
 const request = require('supertest');
-const app = require('../app');
-const User = require('../models/user');
+const testMongoDB = require('../../test_helper/in_memory_mongodb_setup');
+const app = require('../../app');
+const User = require('../../models/user');
 
-beforeAll(test_mongodb.setup);
-afterAll(test_mongodb.teardown);
+beforeAll(testMongoDB.setup);
+afterAll(testMongoDB.teardown);
 
 describe('POST /users/logout', () => {
   const username = 'sabrina';
@@ -14,12 +14,12 @@ describe('POST /users/logout', () => {
 
   beforeEach(async () => {
     await user.save();
-  })
+  });
 
   it('should return 200 response', async () => {
     const response = await request(app)
-      .post('/api/users/logout')
+      .post('/api/users/logout');
 
     expect(response.status).toEqual(200);
-  })
+  });
 });
