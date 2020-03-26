@@ -66,7 +66,7 @@ router.put('/change_password', auth.required, async (req, res) => {
   user.setPassword(req.body.password);
   await user.save();
 
-  return res.status(200).json({ message: 'Password updated!' })
+  return res.status(200).json({ message: 'Password updated!' });
 });
 
 module.exports = router;

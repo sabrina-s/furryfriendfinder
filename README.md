@@ -40,11 +40,15 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [ ] dogs/adopt/:id frontend
 
 ### TOFIX:
-- [x] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh
-- [x] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found' (removed /users/me after implementation of UserContext)
-- [ ] update password form should require current password and validation for it
+- [x] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh (Solution: implement UserContext)
+- [x] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found' (Not an issue anymore; removed /users/me after implementation of UserContext)
+- [ ] UserContext retains `currentUser` data if user navigates within the page, but the context is lost if the page is refreshed.
 
 ### TODO with amanda:
 - [ ] test users/logout; test that access_token is removed
 - [x] test for change_password
 - [x] users/login; issue with react-router `history`? see console errors.
+
+### TODO enhancements:
+- [ ] update password form should require current password and validation for it
+- [ ] host images on Amazon S3
