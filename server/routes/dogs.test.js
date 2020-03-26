@@ -1,9 +1,9 @@
-const test_mongodb = require('../test_helper/in_memory_mongodb_setup');
 const request = require('supertest');
 const app = require('../app');
+const testMongoDB = require('../test_helper/in_memory_mongodb_setup');
 
-beforeAll(test_mongodb.setup);
-afterAll(test_mongodb.teardown);
+beforeAll(testMongoDB.setup);
+afterAll(testMongoDB.teardown);
 
 describe('GET /dogs', () => {
   it('should return a list of dogs', async () => {
@@ -11,22 +11,22 @@ describe('GET /dogs', () => {
       .get('/api/dogs')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(200);
   });
 });
 
 describe('POST /dogs', () => {
   const validPayload = {
-    'name': 'NewDoggo',
-    'gender': 'male',
-    'description': 'Tough on the outside, soft on the inside.',
-    'available': true,
-    'hdbApproved': false
+    name: 'NewDoggo',
+    gender: 'male',
+    description: 'Tough on the outside, soft on the inside.',
+    available: true,
+    hdbApproved: false
   };
 
   const invalidPayload = {
-    'name': 'NewDoggo',
-    'gender': 'male'
+    name: 'NewDoggo',
+    gender: 'male'
   };
 
   it('should add new dog into database', async () => {
@@ -35,7 +35,7 @@ describe('POST /dogs', () => {
       .send(validPayload)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(200);
   });
 
   it('should return 400 if payload is invalid', async () => {
@@ -44,6 +44,6 @@ describe('POST /dogs', () => {
       .send(invalidPayload)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(400)
+      .expect(400);
   });
 });
