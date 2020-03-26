@@ -1,7 +1,10 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 import React, { useEffect, useState } from 'react';
 import { Card, CardMedia, CardContent, CardActions } from '@material-ui/core';
 import { upperFirst } from 'lodash';
 import fetchDogs from '../../data/dogs';
+import { ADOPT_DOG_API } from '../../api';
 
 const dummyImagePath = 'https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260';
 
@@ -18,16 +21,39 @@ function Dogs() {
   function getImage(image) {
     if (!image) {
       return dummyImagePath;
-    } else {
-      return require(`../../assets/${image}`);
     }
+
+    return require(`../../assets/${image}`);
   }
+
+  function handleAdopt(dogId) {
+    const options = {
+      method: 'PUT',
+      body: JSON.stringify({ id: dogId }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    };
+
+    return fetch(ADOPT_DOG_API + dogId, options)
+      .then((response) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const adopted = (available) => {
+    return available ? 'available' : 'adopted';
+  };
 
   return (
     <div className='cards'>
       {
-        dogs.map(dog => (
-          <Card className='card' key={dog._id}>
+        dogs.map((dog) => (
+          <Card className={`card ${adopted(dog.available)}`} key={dog._id}>
             <CardMedia
               className='card-image'
               image={getImage(dog.image)}
@@ -47,13 +73,19 @@ function Dogs() {
             </CardContent>
 
             <CardActions className='card-actions'>
-              <button>Adopt</button>
+              <button
+                type='button'
+                className={`adopt ${adopted(dog.available)}`}
+                onClick={() => handleAdopt(dog._id)}
+              >
+                Adopt
+              </button>
             </CardActions>
           </Card>
         ))
       }
     </div>
-  )
-};
+  );
+}
 
 export default Dogs;

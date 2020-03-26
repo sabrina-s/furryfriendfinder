@@ -23,4 +23,21 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/adopt/:id', async (req, res) => {
+  try {
+    const dogId = req.params.id;
+    console.log('backend dogid', dogId);
+
+    const dog = await Dog.findByIdAndUpdate(
+      dogId,
+      { $set: { available: false } }
+    );
+
+    return res.status(200)
+      .json({ message: `${dog.name} successfully adopted!` });
+  } catch (error) {
+    return res.status(400);
+  }
+});
+
 module.exports = router;

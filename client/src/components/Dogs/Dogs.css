@@ -12,6 +12,10 @@
   flex-direction: column;
 }
 
+.adopted {
+  opacity: 50%;
+}
+
 .card .card-image {
   height: 200px;
 }
@@ -36,4 +40,16 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+button.adopt {
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+button.adopted {
+  pointer-events: none;
 }
