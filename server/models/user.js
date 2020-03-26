@@ -1,9 +1,10 @@
+/* eslint-disable func-names */
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt');
+
+const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   username: {
@@ -25,24 +26,25 @@ const UserSchema = new Schema({
   }
 });
 
+function hashPassword(password) {
+  return bcrypt.hash(password, 10);
+}
+
 UserSchema.pre('save', async function(next) {
   this.password = await hashPassword(this.password);
   next();
 });
 
-function hashPassword(password) {
-  return bcrypt.hash(password, 10);
-};
-
 UserSchema.methods.setPassword = async function(newPassword) {
   this.password = newPassword;
-}
+};
 
 UserSchema.methods.isValidPassword = async function(password) {
+  // eslint-disable-next-line no-return-await
   return await bcrypt.compare(password, this.password);
-}
+};
 
-UserSchema.methods.generateJWT = function() {
+UserSchema.methods.generateJWT = function () {
   return jwt.sign(
     {
       id: this._id,
@@ -51,12 +53,12 @@ UserSchema.methods.generateJWT = function() {
     },
     secret,
     {
-      expiresIn: "7d"
+      expiresIn: '1d'
     }
   );
 };
 
-UserSchema.methods.verifyJWT = function(token) {
+UserSchema.methods.verifyJWT = function (token) {
   try {
     jwt.verify(token, secret);
     return true;
