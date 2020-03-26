@@ -31,9 +31,15 @@ function LoginPage({ setCurrentUser }) {
     try {
       const loginResponse = await fetch(LOGIN_API, options);
       const body = await loginResponse.json();
-      setCurrentUser(body.user);
+
+      if (loginResponse.status === 200) {
+        setCurrentUser(body.user);
+        history.push('/');
+      } else {
+        setErrorMessage(body.message)
+      }
+
       setSubmitting(false);
-      history.push('/');
     } catch (err) {
       setSubmitting(false);
       console.log(err);
