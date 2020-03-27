@@ -38,12 +38,12 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] users/change_password validation; check if user in payload matches currently logged in user
 - [x] dogs/adopt/:id backend
 - [x] dogs/adopt/:id frontend
-- [ ] add `adopter` property on Dog to tag adopted Dog to specific user?
-- [ ] tests for dogs/adopt (blocker)
+- [x] add `adopter` property on Dog to tag adopted Dog to specific user?
+- [ ] tests for dogs/adopt (done, but tests are timing out)
 
 ### TOFIX:
 - [x] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh (Solution: implement UserContext)
-- [-] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found' (Not an issue anymore; removed /users/me after implementation of UserContext)
+- [?] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found' (Not an issue anymore; removed /users/me after implementation of UserContext)
 - [x] UserContext retains `currentUser` data if user navigates within the page, but the context is lost if the page is refreshed. (Solution: add back /users/me. However, this means we have to live with the above issue.)
 
 ### TODO with amanda:

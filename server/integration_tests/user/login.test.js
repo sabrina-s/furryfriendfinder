@@ -10,7 +10,7 @@ describe('POST /users/login', () => {
   it('should return error if user does not exist', async () => {
     const response = await request(app)
       .post('/api/users/login')
-      .send({ username: 'Sabrina', password: '12345678' })
+      .send({ username: 'Sabrina', password: '12345678' });
 
     expect(response.status).toEqual(422);
     expect(response.body).toEqual({ message: 'Invalid email or password.' });
@@ -29,7 +29,7 @@ describe('POST /users/login', () => {
     it('should return 200 response with JWT token', async () => {
       const response = await request(app)
         .post('/api/users/login')
-        .send({ username: 'newuser-success', password: '12345678' })
+        .send({ username: 'newuser-success', password: '12345678' });
 
       expect(response.status).toEqual(200);
       expect(response.body.message).toEqual('Login success!');
