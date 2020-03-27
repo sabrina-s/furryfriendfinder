@@ -1,7 +1,8 @@
 const _ = require('lodash');
 const express = require('express');
 const admin = require('../middleware/admin');
-const auth = require('../middleware/jwt_middleware');
+const auth = require('../middleware/auth');
+const validateObjectId = require('../middleware/validateObjectId');
 const Dog = require('../models/dog');
 
 const router = express.Router();
@@ -24,7 +25,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/adopt/:id', auth.required, async (req, res) => {
+router.put('/adopt/:id', [validateObjectId, auth.required], async (req, res) => {
   try {
     const dogId = req.params.id;
     console.log('backend dogid', dogId);

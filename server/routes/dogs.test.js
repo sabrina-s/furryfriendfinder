@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 const testMongoDB = require('../test_helper/in_memory_mongodb_setup');
 const Dog = require('../models/dog');
+const User = require('../models/user');
 
 beforeAll(testMongoDB.setup);
 afterAll(testMongoDB.teardown);
@@ -61,20 +62,31 @@ describe('POST /dogs', () => {
 
 describe('PUT /dogs/adopt/:id', () => {
   it('should update dog availability to false', async () => {
+    const username = 'sabrina';
+    const password = '12345678';
+
+    const user = new User({ username, password });
     const dog = new Dog(validPayload2);
 
     beforeEach(async () => {
+      await user.save();
       await dog.save();
     });
 
+    const token = user.generateJWT();
     const dogId = await dog._id;
 
-    console.log('dogId-test', dogId);
-    console.log('dog-test---', dog);
+    const response = await request(app)
+      .put(`/api/dogs/adopt/${dogId}`)
+      .set('Cookie', `access_token=${token}`);
 
-    const response = await request(app).put(`/api/dogs/adopt/${dogId}`);
+    expect(response.status).toEqual(200);
+    expect(response.body).toHaveProperty('name', dog.name);
+  });
 
-    expect(response.status).toBe(200);
-    // expect(response.body).toHaveProperty('name', dog.name);
+  it('should return 404 if id provided is not valid', async () => {
+    const response = await request(app).put('/api/dogs/adopt/666');
+
+    expect(response.status).toBe(404);
   });
 });
