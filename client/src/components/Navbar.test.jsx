@@ -15,6 +15,7 @@ test('renders app header', async () => {
   const { getByText } = render(<App />);
 
   await wait();
-  const headerElement = getByText('Furry Friend Finder');
-  expect(headerElement).toBeInTheDocument();
-})
+  expect(getByText('Furry Friend Finder')).toBeInTheDocument();
+  expect(getByText('Login')).toBeInTheDocument();
+  expect(getByText('Register')).toBeInTheDocument();
+});
