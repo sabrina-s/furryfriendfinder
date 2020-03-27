@@ -38,7 +38,7 @@ function RegistrationPage() {
 }
 
   return (
-    <div className='registration-page'>
+    <div className='registration-page container'>
       <h3>Register</h3>
 
       <div>

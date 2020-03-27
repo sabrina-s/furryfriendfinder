@@ -50,7 +50,7 @@ function Dogs() {
   };
 
   return (
-    <div className='cards'>
+    <div className='dogs-container'>
       {
         dogs.map((dog) => (
           <Card className={`card ${adopted(dog.available)}`} key={dog._id}>

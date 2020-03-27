@@ -37,7 +37,7 @@ function SettingsPage() {
   }
 
   return (
-    <div className='settings-page'>
+    <div className='settings-page container'>
       <h3>Update password</h3>
 
       <div>

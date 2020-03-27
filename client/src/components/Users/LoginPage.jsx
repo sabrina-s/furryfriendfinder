@@ -47,7 +47,7 @@ function LoginPage({ setCurrentUser }) {
   }
 
   return (
-    <div className='login-page'>
+    <div className='login-page container'>
       <h3>Login</h3>
 
       <div>
