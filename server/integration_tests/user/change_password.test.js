@@ -17,6 +17,14 @@ describe('PUT /users/change_password', () => {
     await user.save();
   });
 
+  it('should return 401 if user is not logged in', async () => {
+    const response = await request(app)
+      .put('/api/users/change_password')
+      .send({ password: 'new-password-123' });
+
+    expect(response.status).toEqual(401);
+  });
+
   it('should return 200 response and set the new password for the user', async () => {
     const { password: savedPassword } = await User.findById(user.id);
 

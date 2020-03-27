@@ -61,19 +61,39 @@ describe('POST /dogs', () => {
 });
 
 describe('PUT /dogs/adopt/:id', () => {
-  it('should update dog availability to false', async () => {
-    const username = 'sabrina';
-    const password = '12345678';
+  const username = 'sabrina';
+  const password = '12345678';
 
-    const user = new User({ username, password });
+  const user = new User({ username, password });
+
+  beforeEach(async () => {
+    await user.save();
+  });
+
+  const token = user.generateJWT();
+
+  it('should return 401 if user is not logged in', async () => {
+    const response = await request(app)
+      .put('/api/dogs/adopt/666');
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should return 404 if id provided is not valid', async () => {
+    const response = await request(app)
+      .put('/api/dogs/adopt/666')
+      .set('Cookie', `access_token=${token}`);
+
+    expect(response.status).toBe(404);
+  });
+
+  it('should update dog availability to false', async () => {
     const dog = new Dog(validPayload2);
 
     beforeEach(async () => {
-      await user.save();
       await dog.save();
     });
 
-    const token = user.generateJWT();
     const dogId = await dog._id;
 
     const response = await request(app)
@@ -82,11 +102,6 @@ describe('PUT /dogs/adopt/:id', () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty('name', dog.name);
-  });
-
-  it('should return 404 if id provided is not valid', async () => {
-    const response = await request(app).put('/api/dogs/adopt/666');
-
-    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('available', false);
   });
 });

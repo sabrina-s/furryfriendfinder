@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/adopt/:id', [validateObjectId, auth.required], async (req, res) => {
+router.put('/adopt/:id', [auth.required, validateObjectId], async (req, res) => {
   try {
     const dogId = req.params.id;
     console.log('backend dogid', dogId);
