@@ -40,7 +40,9 @@ function App() {
           <Route path='/' exact component={Dogs} />
           <Route path='/login' component={() => <LoginPage setCurrentUser={setCurrentUser} />} />
           <Route path='/register' component={RegistrationPage} />
-          <Route path='/settings' component={SettingsPage} />
+          { currentUser && (
+            <Route path='/settings' component={SettingsPage} />
+          )}
         </Switch>
       </Router>
     </UserContext.Provider>
