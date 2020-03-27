@@ -16,6 +16,4 @@ test('renders app header', async () => {
 
   await wait();
   expect(getByText('Furry Friend Finder')).toBeInTheDocument();
-  expect(getByText('Login')).toBeInTheDocument();
-  expect(getByText('Register')).toBeInTheDocument();
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,9 +10,27 @@ import LoginPage from './Users/LoginPage';
 import RegistrationPage from './Users/RegistrationPage';
 import SettingsPage from './Users/SettingsPage';
 import { UserContext } from './Users/UserContext';
+import { ME_API } from '../api';
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(ME_API, {
+        method: 'GET',
+        credentials: 'include'
+      });
+
+      await response.json()
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+  }, []);
 
   return (
     <UserContext.Provider value={currentUser}>

@@ -49,6 +49,11 @@ router.post('/login', async (req, res) => {
     });
 });
 
+router.get('/me', auth.required, async (req, res) => {
+  const user = await User.findById(req.user.id).select('username -_id');
+  res.send(user);
+});
+
 router.post('/logout', async (req, res) => {
   return res.status(200)
     .clearCookie('access_token')

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { UserContext } from './Users/UserContext';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { LOGOUT_API } from '../api';
 
 function Navbar({ setCurrentUser }) {
@@ -17,9 +16,9 @@ function Navbar({ setCurrentUser }) {
         setCurrentUser();
         history.push('/');
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
-      })
+      });
   }
 
   function viewUserSettings() {
@@ -32,22 +31,24 @@ function Navbar({ setCurrentUser }) {
         <h2>Furry Friend Finder</h2>
       </Link>
       {
-        currentUser &&
-        <div className='user-details'>
-          <p onClick={viewUserSettings}>{currentUser.username}</p>
-          <button className='logout' onClick={handleLogOut}>Log out</button>
-        </div>
+        currentUser && (
+          <div className='user-details'>
+            <p onClick={viewUserSettings}>{currentUser.username}</p>
+            <button type='button' className='logout' onClick={handleLogOut}>Log out</button>
+          </div>
+        )
       }
       {
-        !currentUser &&
-        <div>
-          <Link to='/login'>Login</Link>
-          /
-          <Link to='/register'>Register</Link>
-        </div>
+        !currentUser && (
+          <div>
+            <Link to='/login'>Login</Link>
+            /
+            <Link to='/register'>Register</Link>
+          </div>
+        )
       }
     </div>
-  )
-};
+  );
+}
 
 export default Navbar;

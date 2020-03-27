@@ -43,8 +43,8 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 
 ### TOFIX:
 - [x] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh (Solution: implement UserContext)
-- [x] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found' (Not an issue anymore; removed /users/me after implementation of UserContext)
-- [ ] UserContext retains `currentUser` data if user navigates within the page, but the context is lost if the page is refreshed.
+- [-] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found' (Not an issue anymore; removed /users/me after implementation of UserContext)
+- [x] UserContext retains `currentUser` data if user navigates within the page, but the context is lost if the page is refreshed. (Solution: add back /users/me. However, this means we have to live with the above issue.)
 
 ### TODO with amanda:
 - [ ] test users/logout; test that access_token is removed
