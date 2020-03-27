@@ -11,7 +11,7 @@ function getTokenFromCookie(req) {
 
 module.exports = {
   required: jwt({
-    secret: secret,
+    secret,
     userProperty: 'user',
     getToken: getTokenFromCookie
   })

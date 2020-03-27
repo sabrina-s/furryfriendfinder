@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
-const auth = require('../middleware/jwt_middleware');
+const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const User = require('../models/user');
 
