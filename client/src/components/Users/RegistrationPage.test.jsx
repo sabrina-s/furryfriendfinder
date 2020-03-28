@@ -2,14 +2,14 @@ import React from 'react';
 import {
   render,
   fireEvent,
-  wait,
+  wait
 } from '@testing-library/react';
 import * as Router from 'react-router-dom';
 import RegistrationPage from './RegistrationPage';
-import { REGISTER_API } from '../../api';
+import { REGISTER_API } from '../../constants/api';
 
 jest.mock('react-router-dom', () => ({
-  useHistory: jest.fn(),
+  useHistory: jest.fn()
 }));
 
 afterEach(() => {
@@ -27,7 +27,7 @@ test('shows form inputs for username and password', async () => {
 test('navigates to dashboard when registration is successful', async () => {
   const addHistory = jest.fn();
   jest.spyOn(Router, 'useHistory').mockReturnValue({
-    push: addHistory,
+    push: addHistory
   });
   fetch.mockResponseOnce((req) => {
     if (req.url === REGISTER_API) {
@@ -52,8 +52,8 @@ test('navigates to dashboard when registration is successful', async () => {
   await wait(() => {
     fireEvent.change(password, {
       target: {
-        value: 'password',
-      },
+        value: 'password'
+      }
     });
   });
 

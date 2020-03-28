@@ -1,12 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import {
+  ErrorMessage,
+  Field,
+  Form,
+  Formik
+} from 'formik';
 import * as Yup from 'yup';
-import { CHANGE_PW_API } from '../../api';
+import { CHANGE_PW_API } from '../../constants/api';
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required('Please enter password.')
-})
+});
 
 function SettingsPage() {
   const history = useHistory();
@@ -14,7 +20,7 @@ function SettingsPage() {
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting(true);
 
-    const password = values.password;
+    const { password } = values;
 
     const options = {
       method: 'PUT',
@@ -23,18 +29,18 @@ function SettingsPage() {
         'Content-Type': 'application/json'
       },
       credentials: 'include'
-    }
+    };
 
     return fetch(CHANGE_PW_API, options)
-      .then(response => {
+      .then(() => {
         setSubmitting(false);
         history.push('/');
       })
-      .catch(error => {
+      .catch((error) => {
         setSubmitting(false);
         console.log(error);
-      })
-  }
+      });
+  };
 
   return (
     <div className='settings-page container'>
@@ -49,7 +55,7 @@ function SettingsPage() {
           onSubmit={handleSubmit}
         >
           {
-            props => (
+            (props) => (
               <Form>
                 <div className='form-field'>
                   <Field
@@ -70,7 +76,11 @@ function SettingsPage() {
         </Formik>
       </div>
     </div>
-  )
+  );
+}
+
+SettingsPage.propTypes = {
+  isSubmitting: PropTypes.bool.isRequired
 };
 
 export default SettingsPage;

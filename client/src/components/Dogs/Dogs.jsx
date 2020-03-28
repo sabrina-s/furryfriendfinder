@@ -1,12 +1,16 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 import React, { useEffect, useState } from 'react';
-import { Card, CardMedia, CardContent, CardActions } from '@material-ui/core';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions
+} from '@material-ui/core';
 import { upperFirst } from 'lodash';
 import fetchDogs from '../../data/dogs';
-import { ADOPT_DOG_API } from '../../api';
-
-const dummyImagePath = 'https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260';
+import { ADOPT_DOG_API } from '../../constants/api';
+import { DUMMY_IMAGE } from '../../constants/paths';
 
 function Dogs() {
   const [dogs, setDogs] = useState([]);
@@ -22,7 +26,7 @@ function Dogs() {
 
   function getImage(image) {
     if (!image) {
-      return dummyImagePath;
+      return DUMMY_IMAGE;
     }
 
     return require(`../../assets/${image}`);
@@ -39,7 +43,7 @@ function Dogs() {
     };
 
     return fetch(ADOPT_DOG_API + dogId, options)
-      .then((response) => {
+      .then(() => {
         getDogs();
       })
       .catch((error) => {
@@ -47,6 +51,7 @@ function Dogs() {
       });
   }
 
+  // eslint-disable-next-line arrow-body-style
   const adopted = (available) => {
     return available ? 'available' : 'adopted';
   };
@@ -66,9 +71,9 @@ function Dogs() {
               <h3>{dog.name}</h3>
               <div className='attributes'>
                 <p>{upperFirst(dog.gender)}</p>
-                { dog.hdbApproved &&
+                { dog.hdbApproved && (
                   <p>HDB approved</p>
-                }
+                )}
               </div>
 
               <p className='description'>{dog.description}</p>

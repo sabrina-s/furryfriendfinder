@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import { UserContext } from './Users/UserContext';
-import { LOGOUT_API } from '../api';
+import { LOGOUT_API } from '../constants/api';
 
 function Navbar({ setCurrentUser }) {
   const history = useHistory();

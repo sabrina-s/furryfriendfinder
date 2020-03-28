@@ -2,14 +2,13 @@ import React from 'react';
 import {
   render,
   fireEvent,
-  wait,
+  wait
 } from '@testing-library/react';
 import * as Router from 'react-router-dom';
 import LoginPage from './LoginPage';
-import { LOGIN_API } from '../../api';
 
 jest.mock('react-router-dom', () => ({
-  useHistory: jest.fn(),
+  useHistory: jest.fn()
 }));
 
 afterEach(() => {
@@ -29,15 +28,15 @@ test('sets currentUser and navigates to dashboard when login is successful', asy
   const addHistory = jest.fn();
   const setCurrentUser = jest.fn();
   const user = {
-    '_id': 1,
-    'username': 'username'
+    _id: 1,
+    username: 'username'
   };
 
   jest.spyOn(Router, 'useHistory').mockReturnValue({
-    push: addHistory,
+    push: addHistory
   });
 
-  fetch.mockResponseOnce(JSON.stringify({ user }))
+  fetch.mockResponseOnce(JSON.stringify({ user }));
 
   const { getByRole, getByPlaceholderText } = render(<LoginPage setCurrentUser={setCurrentUser} />);
   const submit = getByRole('button');
@@ -47,16 +46,16 @@ test('sets currentUser and navigates to dashboard when login is successful', asy
   await wait(() => {
     fireEvent.change(username, {
       target: {
-        value: 'mock@username.com',
-      },
+        value: 'mock@username.com'
+      }
     });
   });
 
   await wait(() => {
     fireEvent.change(password, {
       target: {
-        value: 'password',
-      },
+        value: 'password'
+      }
     });
   });
 

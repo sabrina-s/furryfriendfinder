@@ -8,7 +8,7 @@ import {
   Formik
 } from 'formik';
 import * as Yup from 'yup';
-import { REGISTER_API } from '../../api';
+import { REGISTER_API } from '../../constants/api';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().trim()

@@ -10,7 +10,7 @@ import LoginPage from './Users/LoginPage';
 import RegistrationPage from './Users/RegistrationPage';
 import SettingsPage from './Users/SettingsPage';
 import { UserContext } from './Users/UserContext';
-import { ME_API } from '../api';
+import { ME_API } from '../constants/api';
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
