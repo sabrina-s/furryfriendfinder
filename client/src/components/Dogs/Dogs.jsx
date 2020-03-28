@@ -11,11 +11,13 @@ const dummyImagePath = 'https://images.pexels.com/photos/406014/pexels-photo-406
 function Dogs() {
   const [dogs, setDogs] = useState([]);
 
+  async function getDogs() {
+    const response = await fetchDogs();
+    setDogs(response);
+  }
+
   useEffect(() => {
-    (async () => {
-      const response = await fetchDogs();
-      setDogs(response);
-    })();
+    getDogs();
   }, []);
 
   function getImage(image) {
@@ -38,7 +40,7 @@ function Dogs() {
 
     return fetch(ADOPT_DOG_API + dogId, options)
       .then((response) => {
-        window.location.reload();
+        getDogs();
       })
       .catch((error) => {
         console.log(error);
