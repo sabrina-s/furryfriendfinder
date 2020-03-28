@@ -39,15 +39,14 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] dogs/adopt/:id backend
 - [x] dogs/adopt/:id frontend
 - [x] add `adopter` property on Dog to tag adopted Dog to specific user?
-- [ ] tests for dogs/adopt (done, but tests are timing out)
+- [x] tests for dogs/adopt
 
 ### TOFIX:
 - [x] after login successfully, navbar doesn't change to display 'username - log out' instead of 'login' immediately. it only displays when you refresh (Solution: implement UserContext)
 - [?] on page first load, if user not signed in yet, error retrieving /users/me because 'no authorization token was found' (Not an issue anymore; removed /users/me after implementation of UserContext)
 - [x] UserContext retains `currentUser` data if user navigates within the page, but the context is lost if the page is refreshed. (Solution: add back /users/me. However, this means we have to live with the above issue.)
 
-### TODO with amanda:
-- [ ] test users/logout; test that access_token is removed
+### TODO with Amanda:
 - [x] test for change_password
 - [x] users/login; issue with react-router `history`? see console errors.
 
@@ -55,3 +54,4 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] registration should have field to confirm password
 - [ ] update password form should require current password and validation for it
 - [ ] host images on Amazon S3
+- [ ] improve UI of forms

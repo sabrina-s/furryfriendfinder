@@ -19,16 +19,21 @@ describe('POST /users/register', () => {
   it('should return 200 response', async () => {
     const response = await request(app)
       .post('/api/users/register')
-      .send({ username: 'register-user-2', password: '12345678' })
+      .send({ username: 'register-user-2', password: '12345678' });
 
     expect(response.status).toEqual(200);
-    expect(response.body).toEqual({ message: 'register-user-2 registered successfully!' });
+    expect(response.body).toEqual({
+      message: 'register-user-2 registered successfully!',
+      user: {
+        username: 'register-user-2'
+      }
+    });
   });
 
   it('should return error if username already exists', async () => {
     const response = await request(app)
       .post('/api/users/register')
-      .send({ username, password })
+      .send({ username, password });
 
     expect(response.status).toEqual(400);
     expect(response.body).toEqual({ message: 'Unable to register user.' });

@@ -19,7 +19,7 @@ router.post('/register', async (req, res) => {
       })
       .json({
         message: `${user.username} registered successfully!`,
-        user: _.pick(user, ['id', 'username'])
+        user: _.pick(user, ['username'])
       });
   } catch (error) {
     return res.status(400).json({ message: 'Unable to register user.' });
