@@ -45,19 +45,17 @@ describe('PUT /dogs/adopt/:id', () => {
   it('should update dog availability to false and set adopter to user', async () => {
     const dog = new Dog(validPayload);
 
-    beforeEach(async () => {
-      await dog.save();
-    });
+    await dog.save();
 
-    const dogId = await dog._id;
+    const dogId = dog._id;
 
     const response = await request(app)
       .put(`/api/dogs/adopt/${dogId}`)
       .set('Cookie', `access_token=${token}`);
 
     expect(response.status).toEqual(200);
-    expect(response.body).toHaveProperty('name', dog.name);
-    expect(response.body).toHaveProperty('available', false);
-    expect(response.body).toHaveProperty('adopter', user);
+    expect(response.body.dog.name).toEqual(dog.name);
+    expect(response.body.dog.available).toBe(false);
+    expect(response.body.dog.adopter).toEqual(`${user._id}`);
   });
 });
