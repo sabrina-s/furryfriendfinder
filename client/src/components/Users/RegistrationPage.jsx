@@ -1,41 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import {
+  ErrorMessage,
+  Field,
+  Form,
+  Formik
+} from 'formik';
 import * as Yup from 'yup';
 import { REGISTER_API } from '../../api';
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().trim().required('Please enter username.'),
-  password: Yup.string().required('Please enter password.')
-})
+  username: Yup.string().trim()
+    .min(5, 'Username must be at least 5 characters.')
+    .required('Please enter username.'),
+  password: Yup.string()
+    .min(8, 'Password must be at least 8 characters.')
+    .required('Please enter password.'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match.')
+    .required('Please confirm your password.')
+});
 
-function RegistrationPage() {
+function RegistrationPage({ setCurrentUser }) {
   const history = useHistory();
-  const handleRegister = (values, { setSubmitting }) => {
+  const [errorMessage, setErrorMessage] = useState();
+
+  const handleRegister = async (values, { setSubmitting }) => {
     setSubmitting(true);
 
-    const username = values.username;
-    const password = values.password;
+    const { username, password, confirmPassword } = values;
 
     const options = {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, confirmPassword }),
       headers: {
         'Content-Type': 'application/json'
       },
       credentials: 'include'
-    }
+    };
 
-    return fetch(REGISTER_API, options)
-      .then(response => {
-        setSubmitting(false);
+    try {
+      const registrationResponse = await fetch(REGISTER_API, options);
+      const body = await registrationResponse.json();
+
+      if (registrationResponse.status === 200) {
+        setCurrentUser(body.user);
         history.push('/');
-      })
-      .catch(error => {
-        setSubmitting(false);
-        console.log(error);
-      })
-}
+      } else {
+        setErrorMessage(body.message);
+      }
+
+      setSubmitting(false);
+    } catch (error) {
+      setSubmitting(false);
+      console.log(error);
+    }
+  };
 
   return (
     <div className='registration-page container'>
@@ -45,13 +65,14 @@ function RegistrationPage() {
         <Formik
           initialValues={{
             username: '',
-            password: ''
+            password: '',
+            confirmPassword: ''
           }}
           validationSchema={validationSchema}
           onSubmit={handleRegister}
         >
           {
-            props => (
+            (props) => (
               <Form>
                 <div className='form-field'>
                   <Field
@@ -68,9 +89,17 @@ function RegistrationPage() {
                     type='password'
                     name='password'
                     placeholder='Password'
-                    autoComplete='current-password'
                   />
                   <ErrorMessage name='password' component='span' className='form-field-error' />
+                </div>
+
+                <div className='form-field'>
+                  <Field
+                    type='password'
+                    name='confirmPassword'
+                    placeholder='Confirm password'
+                  />
+                  <ErrorMessage name='confirmPassword' component='span' className='form-field-error' />
                 </div>
 
                 <button type='submit' disabled={props.isSubmitting}>
@@ -81,8 +110,12 @@ function RegistrationPage() {
           }
         </Formik>
       </div>
+
+      { errorMessage && (
+        <p className='form-field-error'>{errorMessage}</p>
+      )}
     </div>
-  )
-};
+  );
+}
 
 export default RegistrationPage;

@@ -52,5 +52,6 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] users/login; issue with react-router `history`? see console errors.
 
 ### TODO enhancements:
+- [x] registration should have field to confirm password
 - [ ] update password form should require current password and validation for it
 - [ ] host images on Amazon S3

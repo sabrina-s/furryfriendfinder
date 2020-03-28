@@ -39,7 +39,7 @@ function App() {
         <Switch>
           <Route path='/' exact component={Dogs} />
           <Route path='/login' component={() => <LoginPage setCurrentUser={setCurrentUser} />} />
-          <Route path='/register' component={RegistrationPage} />
+          <Route path='/register' component={() => <RegistrationPage setCurrentUser={setCurrentUser} />} />
           { currentUser && (
             <Route path='/settings' component={SettingsPage} />
           )}
