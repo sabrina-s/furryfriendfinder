@@ -55,11 +55,11 @@ router.get('/me', auth.required, async (req, res) => {
   res.send(user);
 });
 
-router.post('/logout', async (req, res) => {
-  return res.status(200)
+router.post('/logout', async (req, res) => (
+  res.status(200)
     .clearCookie('access_token')
-    .json({ message: 'Logout success!' });
-});
+    .json({ message: 'Logout success!' })
+));
 
 router.get('/', [auth.required, admin], async (req, res) => {
   const users = await User.find({}).select('-password');

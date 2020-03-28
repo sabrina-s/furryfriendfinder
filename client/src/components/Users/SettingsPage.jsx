@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
   ErrorMessage,
@@ -78,9 +77,5 @@ function SettingsPage() {
     </div>
   );
 }
-
-SettingsPage.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired
-};
 
 export default SettingsPage;

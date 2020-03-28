@@ -44,7 +44,9 @@ test('sets currentUser and navigates to dashboard when login is successful', asy
 
   const { getByRole, getByPlaceholderText } = render(<LoginPage
     setCurrentUser={setCurrentUser}
+    history={[]}
   />);
+
   const submit = getByRole('button');
   const username = getByPlaceholderText('Username');
   const password = getByPlaceholderText('Password');

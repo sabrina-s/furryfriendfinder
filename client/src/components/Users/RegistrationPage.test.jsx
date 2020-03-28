@@ -45,6 +45,7 @@ test('sets currentUser and navigates to dashboard when registration is successfu
 
   const { getByRole, getByPlaceholderText } = render(<RegistrationPage
     setCurrentUser={setCurrentUser}
+    history={[]}
   />);
 
   const submit = getByRole('button');
