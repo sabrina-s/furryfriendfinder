@@ -120,8 +120,7 @@ function RegistrationPage({ setCurrentUser }) {
 }
 
 RegistrationPage.propTypes = {
-  setCurrentUser: PropTypes.func.isRequired,
-  isSubmitting: PropTypes.bool.isRequired
+  setCurrentUser: PropTypes.func.isRequired
 };
 
 export default RegistrationPage;

@@ -17,7 +17,11 @@ afterEach(() => {
 });
 
 test('shows form inputs for username and password', async () => {
-  const { getByPlaceholderText } = render(<LoginPage />);
+  const setCurrentUser = jest.fn();
+  const { getByPlaceholderText } = render(<LoginPage
+    setCurrentUser={setCurrentUser}
+    history={[]}
+  />);
 
   expect(getByPlaceholderText('Username')).toBeInTheDocument();
   expect(getByPlaceholderText('Password')).toBeInTheDocument();
@@ -38,7 +42,9 @@ test('sets currentUser and navigates to dashboard when login is successful', asy
 
   fetch.mockResponseOnce(JSON.stringify({ user }));
 
-  const { getByRole, getByPlaceholderText } = render(<LoginPage setCurrentUser={setCurrentUser} />);
+  const { getByRole, getByPlaceholderText } = render(<LoginPage
+    setCurrentUser={setCurrentUser}
+  />);
   const submit = getByRole('button');
   const username = getByPlaceholderText('Username');
   const password = getByPlaceholderText('Password');

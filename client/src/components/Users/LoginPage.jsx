@@ -104,8 +104,7 @@ function LoginPage({ setCurrentUser }) {
 }
 
 LoginPage.propTypes = {
-  setCurrentUser: PropTypes.func.isRequired,
-  isSubmitting: PropTypes.bool.isRequired
+  setCurrentUser: PropTypes.func.isRequired
 };
 
 export default LoginPage;
