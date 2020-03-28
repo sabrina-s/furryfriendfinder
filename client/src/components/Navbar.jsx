@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import { UserContext } from './Users/UserContext';
 import { LOGOUT_API } from '../api';
@@ -50,5 +51,9 @@ function Navbar({ setCurrentUser }) {
     </div>
   );
 }
+
+Navbar.propTypes = {
+  setCurrentUser: PropTypes.func.isRequired
+};
 
 export default Navbar;

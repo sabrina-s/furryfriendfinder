@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
   ErrorMessage,
@@ -117,5 +118,10 @@ function RegistrationPage({ setCurrentUser }) {
     </div>
   );
 }
+
+RegistrationPage.propTypes = {
+  setCurrentUser: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired
+};
 
 export default RegistrationPage;

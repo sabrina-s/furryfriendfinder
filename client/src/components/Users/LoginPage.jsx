@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import {
+  ErrorMessage,
+  Field,
+  Form,
+  Formik
+} from 'formik';
 import * as Yup from 'yup';
 import { LOGIN_API } from '../../api';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().trim().required('Please enter username.'),
   password: Yup.string().required('Please enter password.')
-})
+});
 
 function LoginPage({ setCurrentUser }) {
   const history = useHistory();
@@ -16,8 +22,7 @@ function LoginPage({ setCurrentUser }) {
   const handleLogin = async (values, { setSubmitting }) => {
     setSubmitting(true);
 
-    const username = values.username;
-    const password = values.password;
+    const { username, password } = values;
 
     const options = {
       method: 'POST',
@@ -26,7 +31,7 @@ function LoginPage({ setCurrentUser }) {
         'Content-Type': 'application/json'
       },
       credentials: 'include'
-    }
+    };
 
     try {
       const loginResponse = await fetch(LOGIN_API, options);
@@ -36,15 +41,15 @@ function LoginPage({ setCurrentUser }) {
         setCurrentUser(body.user);
         history.push('/');
       } else {
-        setErrorMessage(body.message)
+        setErrorMessage(body.message);
       }
 
       setSubmitting(false);
-    } catch (err) {
+    } catch (error) {
       setSubmitting(false);
-      console.log(err);
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className='login-page container'>
@@ -60,7 +65,7 @@ function LoginPage({ setCurrentUser }) {
           onSubmit={handleLogin}
         >
           {
-            props => (
+            (props) => (
               <Form>
                 <div className='form-field'>
                   <Field
@@ -91,12 +96,16 @@ function LoginPage({ setCurrentUser }) {
         </Formik>
       </div>
 
-      {
-        errorMessage &&
+      { errorMessage && (
         <p className='form-field-error'>{errorMessage}</p>
-      }
+      )}
     </div>
-  )
+  );
+}
+
+LoginPage.propTypes = {
+  setCurrentUser: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired
 };
 
 export default LoginPage;
