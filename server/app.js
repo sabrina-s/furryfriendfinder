@@ -1,13 +1,12 @@
 const express = require('express');
 const app = express();
-const error = require('./middleware/error');
-const winston = require('winston');
-// require('winston-mongodb');
-require('express-async-errors');
-
+const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
+const winston = require('winston');
+// require('winston-mongodb');
+const error = require('./middleware/error');
+require('express-async-errors');
 
 const dogsRouter = require('./routes/dogs');
 const usersRouter = require('./routes/users');
@@ -20,10 +19,10 @@ app.use(cookieParser());
 const origin = () => {
   if (process.env.NODE_ENV === 'production') {
     return 'https://spotifind-sabrina.herokuapp.com';
-  } else {
-    return 'http://localhost:3000';
   }
-}
+
+  return 'http://localhost:3000';
+};
 
 app.use(cors({
   origin: origin(),
