@@ -10,7 +10,6 @@ import {
 import { upperFirst } from 'lodash';
 import fetchDogs from '../../data/dogs';
 import { ADOPT_DOG_API } from '../../constants/api';
-import { DUMMY_IMAGE } from '../../constants/paths';
 
 function Dogs() {
   const [dogs, setDogs] = useState([]);
@@ -26,7 +25,7 @@ function Dogs() {
 
   function getImage(image) {
     if (!image) {
-      return DUMMY_IMAGE;
+      return require('../../assets/placeholder_dog.jpeg');
     }
 
     return require(`../../assets/${image}`);
