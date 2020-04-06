@@ -1,36 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './Navbar';
 import Dogs from './Dogs/Dogs';
 import LoginPage from './Users/LoginPage';
 import RegistrationPage from './Users/RegistrationPage';
 import SettingsPage from './Users/SettingsPage';
 import { UserContext } from './Users/UserContext';
-import { ME_API } from '../constants/api';
+import { useCurrentUserHook } from './useCurrentUserHook';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState();
-
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(ME_API, {
-        method: 'GET',
-        credentials: 'include'
-      });
-
-      await response.json()
-        .then((user) => {
-          setCurrentUser(user);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })();
-  }, []);
+  const { currentUser, setCurrentUser } = useCurrentUserHook();
 
   return (
     <UserContext.Provider value={currentUser}>
