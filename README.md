@@ -25,8 +25,6 @@ Mockup: https://www.figma.com/file/eCW64W0CQ6phLzKxRwRyMT/Adoption-App?node-id=0
 - [x] can change own password
 - [x] can adopt a dog
 
-## 23 March - ...
-
 ### TODO:
 - [x] users/logout backend
 - [x] users/logout frontend
