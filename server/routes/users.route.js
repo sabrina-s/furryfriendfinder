@@ -70,13 +70,16 @@ router.get("/", [auth.required, admin], async (req, res) => {
   return res.json(users);
 });
 
-router.put("/change_password", auth.required, async (req, res) => {
-  const user = await User.findById(req.user.id);
+router.put("/change_password", auth.required, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    user.setPassword(req.body.password);
+    await user.save();
 
-  user.setPassword(req.body.password);
-  await user.save();
-
-  return res.status(200).json({ message: "Password updated!" });
+    return res.status(200).json({ message: "Password updated!" });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

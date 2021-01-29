@@ -1,0 +1,12 @@
+.flash-message {
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.flash-message.success {
+  color: #55f055;
+}
+
+.flash-message.failure {
+  color: #ac1717;
+}

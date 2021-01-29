@@ -1,77 +1,93 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  ErrorMessage,
-  Field,
-  Form,
-  Formik
-} from 'formik';
-import * as Yup from 'yup';
-import { CHANGE_PW_API } from '../../constants/api';
+import React, { useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
+import { CHANGE_PW_API } from "../../constants/api";
+import axios from "axios";
+import "./SettingsPage.css";
 
 const validationSchema = Yup.object().shape({
-  password: Yup.string().required('Please enter password.')
+  password: Yup.string().required("Please enter password."),
 });
 
 function SettingsPage() {
-  const history = useHistory();
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [failureMessage, setFailureMessage] = useState(null);
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handlePasswordChange = ({ password }) => {
     setSubmitting(true);
 
-    const { password } = values;
-
-    const options = {
-      method: 'PUT',
-      body: JSON.stringify({ password }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    };
-
-    return fetch(CHANGE_PW_API, options)
-      .then(() => {
+    axios
+      .put(CHANGE_PW_API, { password }, { withCredentials: true })
+      .then((res) => {
         setSubmitting(false);
-        history.push('/');
+        flashMessage("success", res.data.message);
       })
       .catch((error) => {
         setSubmitting(false);
-        console.log(error);
+        flashMessage("failure", "Update failed");
       });
   };
 
+  const flashMessage = (type, message) => {
+    if (type === "success") {
+      setSuccessMessage(message);
+
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 1000);
+    } else if (type === "failure") {
+      setFailureMessage(message);
+
+      setTimeout(() => {
+        setFailureMessage(null);
+      }, 1000);
+    }
+  };
+
   return (
-    <div className='settings-page container'>
+    <div className="settings-page container">
       <h3>Update password</h3>
 
       <div>
         <Formik
           initialValues={{
-            password: ''
+            password: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={handlePasswordChange}
         >
-          {
-            (props) => (
-              <Form>
-                <div className='form-field'>
-                  <Field
-                    type='password'
-                    name='password'
-                    placeholder='Password'
-                    autoComplete='current-password'
-                  />
-                  <ErrorMessage name='password' component='span' className='form-field-error' />
-                </div>
+          {(props) => (
+            <Form>
+              <div className="form-field">
+                <Field
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  autoComplete="current-password"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="span"
+                  className="form-field-error"
+                />
+                {successMessage && (
+                  <span className="success flash-message">
+                    {successMessage}
+                  </span>
+                )}
+                {failureMessage && (
+                  <span className="failure flash-message">
+                    {failureMessage}
+                  </span>
+                )}
+              </div>
 
-                <button type='submit' disabled={props.isSubmitting}>
-                  Login
-                </button>
-              </Form>
-            )
-          }
+              <button type="submit" disabled={isSubmitting}>
+                Submit
+              </button>
+            </Form>
+          )}
         </Formik>
       </div>
     </div>
