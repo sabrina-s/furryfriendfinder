@@ -32,6 +32,32 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.put("/:id", [auth.required, admin], async (req, res, next) => {
+  try {
+    const params = _.pick(req.body, [
+      "name",
+      "gender",
+      "description",
+      "hdbApproved",
+      "birthday",
+      "available",
+    ]);
+
+    const dog = await Dog.findByIdAndUpdate(
+      req.params.id,
+      { $set: params },
+      { new: true }
+    );
+
+    return res
+      .status(200)
+      .json({ message: `${dog.name} modified successfully!` });
+  } catch (error) {
+    error.message = "Dog does not exist.";
+    next(error);
+  }
+});
+
 router.put(
   "/adopt/:id",
   [auth.required, validateObjectId],

@@ -1,5 +1,5 @@
-const jwt = require('express-jwt');
-const { secret } = require('../config/jwt');
+const jwt = require("express-jwt");
+const { secret } = require("../config/jwt");
 
 function getTokenFromCookie(req) {
   let token = null;
@@ -12,7 +12,7 @@ function getTokenFromCookie(req) {
 module.exports = {
   required: jwt({
     secret,
-    userProperty: 'user',
-    getToken: getTokenFromCookie
-  })
+    userProperty: "user",
+    getToken: getTokenFromCookie,
+  }),
 };
