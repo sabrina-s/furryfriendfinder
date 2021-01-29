@@ -1,10 +1,10 @@
-const winston = require('winston');
+const winston = require("winston");
 
-module.exports = function (err, req, res) {
+module.exports = function (err, req, res, next) {
   winston.error(err.message);
 
   const errorCode = err.status || 500;
-  const errorMessage = err.message || 'Something failed.';
+  const errorMessage = err.message || "Something failed.";
 
   res.status(errorCode).send(errorMessage);
 };
