@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   return res.status(200).json(dogs);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
     const params = _.pick(req.body, [
       "name",
@@ -28,14 +28,14 @@ router.post("/", async (req, res) => {
 
     return res.status(200).json({ message: `${dog.name} added successfully!` });
   } catch (error) {
-    return res.status(400).json({ message: "Unable to add new dog." });
+    next(error);
   }
 });
 
 router.put(
   "/adopt/:id",
   [auth.required, validateObjectId],
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const dogId = req.params.id;
       const user = await User.findById(req.user.id);
@@ -50,7 +50,7 @@ router.put(
         .status(200)
         .json({ message: `${dog.name} successfully adopted!`, dog });
     } catch (error) {
-      return res.status(400);
+      next(error);
     }
   }
 );
