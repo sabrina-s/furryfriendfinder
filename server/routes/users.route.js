@@ -3,6 +3,8 @@ const express = require("express");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const User = require("../models/user.model");
+const { route } = require("./dogs.route");
+const Dog = require("../models/dog.model");
 
 const router = express.Router();
 
@@ -77,6 +79,18 @@ router.put("/change_password", auth.required, async (req, res, next) => {
     await user.save();
 
     return res.status(200).json({ message: "Password updated!" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/dogs", auth.required, async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    // TODO: dog not saved in user's adoptedDogs array
+    const dogs = await Dog.find({}).where({ adopter: userId });
+
+    return res.status(200).json(dogs);
   } catch (error) {
     next(error);
   }

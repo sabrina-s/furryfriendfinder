@@ -5,3 +5,4 @@ export const LOGOUT_API = `${process.env.REACT_APP_API_URL}/api/users/logout`;
 export const ME_API = `${process.env.REACT_APP_API_URL}/api/users/me`;
 export const GET_DOGS_API = `${process.env.REACT_APP_API_URL}/api/dogs`;
 export const ADOPT_DOG_API = `${process.env.REACT_APP_API_URL}/api/dogs/adopt/`;
+export const GET_ADOPTED_DOGS_API = `${process.env.REACT_APP_API_URL}/api/users/dogs`;

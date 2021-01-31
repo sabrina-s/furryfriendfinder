@@ -68,7 +68,7 @@ router.put(
 
       const dog = await Dog.findByIdAndUpdate(
         dogId,
-        { $set: { available: false, adopter: user } },
+        { $set: { available: false, adopter: user._id } },
         { new: true }
       );
 

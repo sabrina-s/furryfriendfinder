@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import { CHANGE_PW_API } from "../../constants/api";
 import axios from "axios";
 import "./SettingsPage.css";
+import Separator from "../common/Separator";
+import AdoptedDogs from "./AdoptedDogs";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required("Please enter password."),
@@ -47,7 +49,9 @@ function SettingsPage() {
 
   return (
     <div className="settings-page container">
-      <h3>Update password</h3>
+      <h3>User settings</h3>
+
+      <h4>Update your password</h4>
 
       <div>
         <Formik
@@ -90,6 +94,10 @@ function SettingsPage() {
           )}
         </Formik>
       </div>
+
+      <Separator />
+
+      <AdoptedDogs />
     </div>
   );
 }
