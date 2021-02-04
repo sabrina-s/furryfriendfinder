@@ -1,14 +1,9 @@
-import React from 'react';
-import {
-  render,
-  fireEvent,
-  wait
-} from '@testing-library/react';
-import * as Router from 'react-router-dom';
-import SettingsPage from './SettingsPage';
+import React from "react";
+import { render, fireEvent, wait, screen } from "@testing-library/react";
+import SettingsPage from "./SettingsPage";
 
-jest.mock('react-router-dom', () => ({
-  useHistory: jest.fn()
+jest.mock("react-router-dom", () => ({
+  useHistory: jest.fn(),
 }));
 
 afterEach(() => {
@@ -16,40 +11,26 @@ afterEach(() => {
   fetch.resetMocks();
 });
 
-test('shows form inputs for password', async () => {
-  const { getByPlaceholderText } = render(<SettingsPage
-    history={[]}
-  />);
+test("shows form inputs for password", async () => {
+  const { getByPlaceholderText } = render(<SettingsPage history={[]} />);
 
-  expect(getByPlaceholderText('Password')).toBeInTheDocument();
+  expect(getByPlaceholderText("Password")).toBeInTheDocument();
   await wait();
 });
 
-test('sets currentUser and navigates to dashboard when registration is successful', async () => {
-  const addHistory = jest.fn();
+test("displays error message when password field is set to empty", async () => {
+  render(<SettingsPage />);
 
-  jest.spyOn(Router, 'useHistory').mockReturnValue({
-    push: addHistory
+  const submit = screen.getByRole("button");
+  const password = screen.getByPlaceholderText("Password");
+
+  fireEvent.change(password, {
+    target: {
+      value: "",
+    },
   });
+  fireEvent.click(submit);
 
-  const { getByRole, getByPlaceholderText } = render(<SettingsPage
-    history={[]}
-  />);
-
-  const submit = getByRole('button');
-  const password = getByPlaceholderText('Password');
-
-  await wait(() => {
-    fireEvent.change(password, {
-      target: {
-        value: 'password'
-      }
-    });
-  });
-
-  await wait(() => {
-    fireEvent.click(submit);
-  });
-
-  expect(addHistory).toHaveBeenCalledWith('/');
+  const successMessage = await screen.findByText(/please enter password./i);
+  expect(successMessage).toBeInTheDocument();
 });
