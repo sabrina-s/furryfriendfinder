@@ -12,19 +12,17 @@ let mongoServer;
 
 const setup = async () => {
   mongoServer = new MongodbMemoryServer();
-  const mongoUri = await mongoServer.getConnectionString();
+  const mongoUri = await mongoServer.getUri();
   const opts = {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   };
-  await mongoose
-    .connect(mongoUri, opts)
-    .then(
-      () => console.log("Mongo DB is ready."),
-      error => console.error(error)
-    );
+  await mongoose.connect(mongoUri, opts).then(
+    () => console.log("Mongo DB is ready."),
+    (error) => console.error(error)
+  );
 };
 
 const teardown = () => {
@@ -34,5 +32,5 @@ const teardown = () => {
 
 module.exports = {
   setup,
-  teardown
+  teardown,
 };

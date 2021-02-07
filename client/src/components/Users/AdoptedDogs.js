@@ -12,7 +12,7 @@ const AdoptedDogs = () => {
         setDogs(res.data);
       })
       .catch((error) => {
-        console.error("adopteddogs---", error);
+        console.error("Network error");
       });
   }, []);
 
